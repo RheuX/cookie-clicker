@@ -1,23 +1,34 @@
-import logo from './logo.svg';
+import React, { useState } from 'react';
 import './App.css';
+import Header from './components/Header';
+import CookieButton from './components/CookieButton';
+import CookieDisplay from './components/CookieDisplay';
+import UpgradeButton from './components/Upgrade';
 
 function App() {
+  const [score, setScore] = useState(0);
+  const [upgrade, setUpgrade] = useState(1);
+
+  const incrementScore = () => {
+    setScore(score + upgrade);
+  }
+
+  const handleUpgradeClick = (value) => {
+    setUpgrade(upgrade + value);
+  }
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className='main-container'>
+      <Header className="Header" />
+      <CookieButton className="CookieButton" onClick={incrementScore} />
+      <div className="display-container">
+        <div className="display-item">
+          <CookieDisplay score={score} />
+        </div>
+        <div className="display-item">
+          <UpgradeButton onUpgradeClick={handleUpgradeClick} />
+        </div>
+      </div>
     </div>
   );
 }

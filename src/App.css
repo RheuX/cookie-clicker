@@ -1,38 +1,72 @@
-.App {
+body {
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  /* Hide any potential scrollbars */
+}
+
+.content {
+  height: 100vh;
+  /* Make the content fill the viewport vertically */
+  background-color: #f0f0f0;
+  /* Set a background color for visibility */
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Define a flex container for your main content */
+.main-container {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+
+/* Header takes 25% of the screen */
+.Header {
+  flex: 1;
+  background-color: #f0f0f0;
   text-align: center;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+/* CookieButton takes 75% of the screen */
+.CookieButton {
+  flex: 3;
+  background-color: #e0e0e0;
+  text-align: center;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.display-container {
+  display: grid;
+  flex: 1;
+  grid-template-columns: 1fr 1fr;
+  /* Two columns of equal width */
+  grid-gap: 20px;
+  /* Add some space between the columns */
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
+/* .display-item will share the available space evenly */
+.display-item {
+  flex: 1;
+  background-color: #d0d0d0;
+  text-align: center;
+}
+
+.buttons-container {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  /* 3 columns with equal width */
+  grid-gap: 10px;
+  /* Adjust the gap as needed */
+  justify-items: center;
+  /* Center buttons horizontally */
   align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  /* Center buttons vertically */
+  height: 100%
 }
 
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.buttons-container button {
+  /* Style your buttons here */
 }
