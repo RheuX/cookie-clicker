@@ -27,7 +27,6 @@ body {
 /* Header takes 25% of the screen */
 .Header {
   flex: 1;
-  background-color: #f0f0f0;
   text-align: center;
 }
 
@@ -38,6 +37,7 @@ body {
   text-align: center;
 }
 
+/* Both CookieDisplay and UpgradeButton takes 25% of the screen */
 .display-container {
   display: grid;
   flex: 1;
@@ -50,7 +50,7 @@ body {
 /* .display-item will share the available space evenly */
 .display-item {
   flex: 1;
-  background-color: #d0d0d0;
+  background-color: #b97a57;
   text-align: center;
 }
 

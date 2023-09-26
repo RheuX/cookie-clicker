@@ -1,19 +1,13 @@
 import React from 'react';
+import './Header.css'
 
 function Header() {
-  const headerStyle = {
-    backgroundColor: 'rgb(211,211,211)',
-    color: 'black',
-    padding: '10px',
-    textAlign: 'center',
-  };
-
   return (
-    <header style={headerStyle}>
+    <header className='header'>
       <h1>Cookie Cliker Game</h1>
-      <p>Click the cookie to increase your score!</p>
+      <p>Click the cookie, that's it</p>
     </header>
   );
 }
 
-export default Header
+export default Header;
