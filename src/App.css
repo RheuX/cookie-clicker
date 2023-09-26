@@ -43,8 +43,6 @@ body {
   flex: 1;
   grid-template-columns: 1fr 1fr;
   /* Two columns of equal width */
-  grid-gap: 20px;
-  /* Add some space between the columns */
 }
 
 /* .display-item will share the available space evenly */
@@ -54,19 +52,9 @@ body {
   text-align: center;
 }
 
-.buttons-container {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  /* 3 columns with equal width */
-  grid-gap: 10px;
-  /* Adjust the gap as needed */
-  justify-items: center;
-  /* Center buttons horizontally */
-  align-items: center;
-  /* Center buttons vertically */
-  height: 100%
+.grid-item {
+  border-top: 2px solid black;
+  /* Add a black border to the top of the grid item */
+  /* Other grid item styles */
 }
 
-.buttons-container button {
-  /* Style your buttons here */
-}

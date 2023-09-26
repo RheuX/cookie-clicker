@@ -1,8 +1,14 @@
 import React from 'react';
+import './CookieDisplay.css';
 
 function CookieDisplay(props) {
   return (
-    <p>Your Score: {props.score}</p>
+    <>
+    <div className='display-cookie'>
+      <p>Your Cookies: {props.score}</p>
+      <p>Time:</p>
+    </div>
+    </>
   );
 }
 
