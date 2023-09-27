@@ -40,15 +40,28 @@
     /* Optional: Add transition for a smoother hover effect */
     transition: border-color 0.3s;
 }
-
+/*
 .buttons-container button::after {
   content: attr(data-label);
+  
+  display: block;
+  font-size: 24px;
+  
+  margin-top: 5px;
+  
+  color: white;
+  
+}
+*/
+
+.buttons-container button::after {
+  content: attr(data-cost);
   /* Use the data-label attribute for the small text */
   display: block;
   font-size: 18px;
   /* Adjust the size as needed */
-  margin-top: 0;
-  /* Spacing between button and small text */
+  margin-top: 5px;
+  /* Add spacing between button and small text */
   color: white;
   /* Text color for the small text */
 }
