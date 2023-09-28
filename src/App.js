@@ -50,13 +50,17 @@ function App() {
   return (
     <div className='main-container'>
       <Header className="Header" />
-      <CookieButton className="CookieButton" onClick={incrementScore} />
-      <div className="display-container">
-        <div className="display-item">
-          <CookieDisplay score={score} />
+      <div className="container">
+        <div className="cookie-button">
+          <CookieButton className="CookieButton" onClick={incrementScore} />
         </div>
-        <div className="display-item">
-          <UpgradeButton upgradesList={upgradesList} onUpgradeClick={handleUpgradeClick} />
+        <div className="display-container">
+          <div className="top-display">
+            <CookieDisplay score={score} />
+          </div>
+          <div className="bottom-display">
+            <UpgradeButton upgradesList={upgradesList} onUpgradeClick={handleUpgradeClick} />
+          </div>
         </div>
       </div>
     </div>

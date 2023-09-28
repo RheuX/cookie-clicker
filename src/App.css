@@ -58,3 +58,37 @@ body {
   /* Other grid item styles */
 }
 
+/* Hi */
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 100vh;
+  /* Adjust padding as needed */
+}
+
+.cookie-button {
+  width: 80%;
+  /* 80% of the available space */
+}
+
+.display-container {
+  width: 20%;
+  height: 100%;
+  /* 20% of the available space */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  background-color: #b97a57;
+}
+
+.top-display {
+  height: 40%;
+  /* 40% of the display-container height */
+}
+
+.bottom-display {
+  height: 60%;
+  /* 60% of the display-container height */
+}
+
