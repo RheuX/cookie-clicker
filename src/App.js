@@ -48,15 +48,20 @@ function App() {
   }
 
   return (
-    <div className='main-container'>
+    <div className="main-container">
       <Header className="Header" />
-      <CookieButton className="CookieButton" onClick={incrementScore} />
-      <div className="display-container">
-        <div className="display-item">
-          <CookieDisplay score={score} />
-        </div>
-        <div className="display-item">
-          <UpgradeButton upgradesList={upgradesList} onUpgradeClick={handleUpgradeClick} />
+      <div  display='flex' flex-direction='column'>
+        <CookieButton className="CookieButton" onClick={incrementScore} />
+        <div className="display-container">
+          <div className="display-item">
+            <CookieDisplay score={score} />
+          </div>
+          <div className="display-item">
+            <UpgradeButton
+              upgradesList={upgradesList}
+              onUpgradeClick={handleUpgradeClick}
+            />
+          </div>
         </div>
       </div>
     </div>
