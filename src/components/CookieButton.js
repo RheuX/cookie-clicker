@@ -21,11 +21,10 @@ const containerStyle = {
   justifyContent: 'center', // Center the button horizontally
   alignItems: 'center', // Center the button vertically
   minHeight: '60vh', // Ensure the container takes up the full viewport height
-  maxHeight: '80vh',
+  maxHeight: '100vh',
   overflow: 'hidden',
   'background-color': 'gray',
   position: "relative",
-
 };
 
 function CookieButton(props) {

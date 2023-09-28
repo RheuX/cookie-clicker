@@ -12,6 +12,14 @@ function App() {
   //State for managing the upgrade increment
   const [upgrade, setUpgrade] = useState(1);
 
+  //Stopwatch for the game
+  const [isActive, setIsActive] = useState(false);
+  const [isPaused, setIsPaused] = useState(true);
+  const [time, setTime] = useState(0);
+
+  //The goal for the game
+  const goal = 100000;
+
   //State for the upgrade list for each button
   // Below is just to ignore the warning that `setUpgradeCost` is not being used
   // eslint-disable-next-line
@@ -28,9 +36,38 @@ function App() {
     { id: 6, label: 'Auto 100x', upgrade: 500 },
   ];
 
+    React.useEffect(() => {
+      let interval = null;
+  
+      if (isActive && isPaused === false) {
+        interval = setInterval(() => {
+          setTime((time) => time + 10);
+        }, 10);
+      } 
+      else {
+          clearInterval(interval);
+      }
+      return () => {
+        clearInterval(interval);
+      };
+    }, [isActive, isPaused]);
+
+    const handleStart = () => {
+        setIsActive(true);
+        setIsPaused(false);
+    };
+
+    // eslint-disable-next-line
+    const handlePauseResume = () => {
+        setIsPaused(!isPaused);
+    };
 
   const incrementScore = () => { //everytime you click, you get cookie
+    handleStart()
     setScore(score + upgrade);
+    if(score + upgrade >= goal) {
+      handlePauseResume();
+    }
   }
 
   const handleUpgradeClick = (value, id) => {
@@ -54,7 +91,7 @@ function App() {
         <CookieButton className="CookieButton" onClick={incrementScore} />
         <div className="display-container">
           <div className="display-item">
-            <CookieDisplay score={score} />
+            <CookieDisplay score={score} goal={goal} time={time} />
           </div>
           <div className="display-item">
             <UpgradeButton

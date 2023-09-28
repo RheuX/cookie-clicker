@@ -43,12 +43,17 @@ body {
   flex: 1;
   grid-template-columns: 1fr 1fr;
   /* Two columns of equal width */
+  border: 2px solid black;
+  background-color: #b97a57;
+  /* Add a black outline */
+  border-radius: 10px;
+  /* Add rounded corners */
+  margin: 0 10px;
 }
 
 /* .display-item will share the available space evenly */
 .display-item {
   flex: 1;
-  background-color: #b97a57;
   text-align: center;
 }
 
