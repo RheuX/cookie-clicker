@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import './App.css';
 import Header from './components/Header';
 import CookieButton from './components/CookieButton';
@@ -11,6 +11,15 @@ function App() {
 
   //State for managing the upgrade increment
   const [upgrade, setUpgrade] = useState(1);
+
+  //State to keep track of the cookie button's position
+  const [cookiePosition, setCookiePosition] = useState({x: 0, y: 0});
+
+  //Create a ref to the cookie button to acces it s DOM element
+  const cookieButtonRef = useRef(null);
+
+  //Constant for cookie button width and height
+  let COOKIE_HEIGHT = 100, COOKIE_WIDTH = 100;
 
   //State for the upgrade list for each button
   // Below is just to ignore the warning that `setUpgradeCost` is not being used
@@ -47,10 +56,63 @@ function App() {
     console.log(id ,upgradeCosts[id]);
   }
 
+  const myDiv = document.getElementById('myDiv');
+  const divWidth = myDiv.offsetWidth; // Width of the element
+  const divHeight = myDiv.offsetHeight; // Height of the element
+
+  //one time effect
+  /*
+  useEffect(() => {
+    //Constant for cookie button width and height
+    const COOKIE_HEIGHT = 100, COOKIE_WIDTH = 100;
+    
+    const initialX = (divWidth - COOKIE_WIDTH) / 2;
+    const initialY = (divHeight - COOKIE_HEIGHT) / 2;
+
+    console.log("Div Dimension: ", divWidth, divHeight);
+    console.log("Initial Dimension: ", initialX, initialY);
+
+    setCookiePosition({ x: initialX, y: initialY });
+  }, [myDiv]);
+
+  //Update periodically everytime 5 seconds(?)
+  useEffect(() => { 
+    // Function to check if a collision occurs
+    const checkCollision = (x, y) => {
+      // Iterate through your array of cookie positions and check for collisions
+      // You may need to adjust the collision logic based on the size of your cookies
+      if (x < cookiePosition.x + COOKIE_WIDTH &&
+          x + COOKIE_WIDTH > cookiePosition.x &&
+          y < cookiePosition.y + COOKIE_HEIGHT &&
+          y + COOKIE_HEIGHT > cookiePosition.y) {
+        return true; // Collision detected
+      }
+      return false; // No collision
+    }
+
+    const intervalID = setInterval(() => {
+      const maxX = window.innerWidth - COOKIE_WIDTH;
+      const maxY = window.innerHeight - COOKIE_HEIGHT;
+
+      console.log("Here are the dimension of the div cookie: ",maxX, maxY);
+
+      let newX, newY;
+      do {
+        newX = Math.random() * maxX;
+        newY = Math.random() * maxY;
+      } while (checkCollision(newX, newY))
+
+      setCookiePosition({ x: newX, y:newY}); 
+    }, 5000); // Change position every 5 seconds (adjust as needed)
+
+    return () => clearInterval(intervalID); // Cleanup the interval on unmount
+  }, [cookiePosition, COOKIE_HEIGHT, COOKIE_WIDTH]);
+  */
+
   return (
     <div className='main-container'>
       <Header className="Header" />
-      <CookieButton className="CookieButton" onClick={incrementScore} />
+      <CookieButton className="CookieButton" onClick={incrementScore} cookiePosition={cookiePosition} cookieButtonRef = {cookieButtonRef} />
       <div className="display-container">
         <div className="display-item">
           <CookieDisplay score={score} />

@@ -5,18 +5,6 @@ body {
   /* Hide any potential scrollbars */
 }
 
-.content {
-  height: 100vh;
-  /* Make the content fill the viewport vertically */
-  background-color: #f0f0f0;
-  /* Set a background color for visibility */
-  text-align: center;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-}
-
 /* Define a flex container for your main content */
 .main-container {
   display: flex;
@@ -26,13 +14,13 @@ body {
 
 /* Header takes 25% of the screen */
 .Header {
-  flex: 1;
+  flex: 25vh;
   text-align: center;
 }
 
 /* CookieButton takes 75% of the screen */
 .CookieButton {
-  flex: 3;
+  flex: 50vh;
   background-color: #e0e0e0;
   text-align: center;
 }
@@ -40,7 +28,7 @@ body {
 /* Both CookieDisplay and UpgradeButton takes 25% of the screen */
 .display-container {
   display: grid;
-  flex: 1;
+  flex: 20vh;
   grid-template-columns: 1fr 1fr;
   /* Two columns of equal width */
 }
