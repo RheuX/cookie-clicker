@@ -36,38 +36,46 @@ function App() {
     { id: 6, label: 'Auto 100x', upgrade: 500 },
   ];
 
-    React.useEffect(() => {
-      let interval = null;
-  
-      if (isActive && isPaused === false) {
-        interval = setInterval(() => {
-          setTime((time) => time + 10);
-        }, 10);
-      } 
-      else {
-          clearInterval(interval);
-      }
-      return () => {
+  //Auto Update every 10 miliseconds on timer
+  React.useEffect(() => {
+    let interval = null;
+
+    if (isActive && isPaused === false) {
+      interval = setInterval(() => {
+        setTime((time) => time + 10);
+      }, 10);
+    } 
+    else {
         clearInterval(interval);
-      };
-    }, [isActive, isPaused]);
-
-    const handleStart = () => {
-        setIsActive(true);
-        setIsPaused(false);
+    }
+    return () => {
+      clearInterval(interval);
     };
+  }, [isActive, isPaused]);
 
-    // eslint-disable-next-line
-    const handlePauseResume = () => {
-        setIsPaused(!isPaused);
-    };
+  //Handle function to start
+  const handleStart = () => {
+      setIsActive(true);
+      setIsPaused(false);
+  };
 
-  const incrementScore = () => { //everytime you click, you get cookie
-    handleStart()
-    setScore(score + upgrade);
+  //Handle function to stop
+  const handlePauseResume = () => {
+      setIsPaused(!isPaused);
+  };
+
+  const startAndPause = () => {
+    if(time === 0) {
+      handleStart();
+    }
     if(score + upgrade >= goal) {
       handlePauseResume();
     }
+  }
+
+  const incrementScore = () => { //everytime you click, you get cookie
+    startAndPause();
+    setScore(score + upgrade);
   }
 
   const handleUpgradeClick = (value, id) => {
