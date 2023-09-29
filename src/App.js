@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import './App.css';
 import Header from './components/Header';
-import CookieButton from './components/CookieButton';
+import GameBoard from "./components/GameBoard";
 import CookieDisplay from './components/CookieDisplay';
 import UpgradeButton from './components/Upgrade';
 
@@ -48,15 +48,18 @@ function App() {
   }
 
   return (
-    <div className='main-container'>
+    <div className="main-container">
       <Header className="Header" />
-      <CookieButton className="CookieButton" onClick={incrementScore} />
+      <GameBoard incrementScore={incrementScore} />
       <div className="display-container">
         <div className="display-item">
           <CookieDisplay score={score} />
         </div>
         <div className="display-item">
-          <UpgradeButton upgradesList={upgradesList} onUpgradeClick={handleUpgradeClick} />
+          <UpgradeButton
+            upgradesList={upgradesList}
+            onUpgradeClick={handleUpgradeClick}
+          />
         </div>
       </div>
     </div>

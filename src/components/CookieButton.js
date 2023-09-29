@@ -13,24 +13,14 @@ const cookieButtonStyle = {
   border: 'none', // Remove the button border if desired
 };
 
-const containerStyle = {
-  display: 'flex',
-  justifyContent: 'center', // Center the button horizontally
-  alignItems: 'center', // Center the button vertically
-  minHeight: '60vh', // Ensure the container takes up the full viewport height
-  maxHeight: '100vh'
-};
-
 function CookieButton(props) {
   const handleClick = () => {
     // Call the parent's onClick function to update the score
-    props.onClick();
+    props.incrementScore();
   };
 
   return (
-    <div style={containerStyle}>
-      <button style={cookieButtonStyle} onClick={handleClick}></button>
-    </div>
+    <button style={cookieButtonStyle} onClick={handleClick}></button>
   );
 }
 
