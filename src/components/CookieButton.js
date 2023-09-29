@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import cookieImage from '../assets/CookiePic.png';
 
 const cookieButtonStyle = {
@@ -21,6 +21,24 @@ function CookieButton(props) {
   const max_click = 1;
   const buttonRef = useRef(null); // Create a ref to hold a reference to the button element
 
+  useEffect(() => {
+    var randomX = 0.15 + Math.random() * 0.6;
+    var randomY = 0.1 + Math.random() * 0.8;
+    randomX = randomX.toFixed(2);
+    randomY = randomY.toFixed(2);
+
+    console.log(randomX);
+    buttonRef.current.style.top = randomX * 100 + "%";
+    buttonRef.current.style.left = randomY * 100 + "%";
+
+    console.log(buttonRef.current.style.top);
+    setClickCount(0);
+
+    return () => {
+    };
+  }, []);
+
+  // 
   const handleClick = () => {
     setClickCount((clickCount) => clickCount + 1);
 

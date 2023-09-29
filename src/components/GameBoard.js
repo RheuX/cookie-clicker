@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import CookieButton from "./CookieButton";
 
 const containerStyle = {
@@ -12,13 +12,47 @@ const containerStyle = {
   position: "relative",
 };
 
+const tempAddButton = {
+  cursor: "pointer",
+  position: "absolute",
+  top: "90%",
+  left: "90%",
+};
+
 function GameBoard(props) {
+  const [cookieList, setCookieList] = useState([
+    { id: 0, text: "Cookie 0" },
+  ]);
+  const [idCounter, setIdCounter] = useState(1); 
+
+  
+  const addCookie = () => {
+    const newCookie = {
+      id: idCounter,
+      text: `Cookie ${idCounter}`,
+    };
+
+    setIdCounter((idCounter) => idCounter + 1);
+
+    // Use the spread operator to create a new array with the new item added
+    setCookieList((cookieList) => [...cookieList, newCookie]);
+  };
+
   return (
     <div id="GameBoard" style={containerStyle}>
-      <CookieButton
-        className="CookieButton"
-        incrementScore={props.incrementScore}
-      />
+      <ul>
+        {cookieList.map((cookie) => (
+          <CookieButton
+            key={cookie.id}
+            className="CookieButton"
+            text={cookie.text}
+            incrementScore={props.incrementScore}
+          />
+        ))}
+      </ul>
+      <button style={tempAddButton} onClick={addCookie}>
+        Add Cookie
+      </button>
     </div>
   );
 }
