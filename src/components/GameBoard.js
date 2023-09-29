@@ -6,12 +6,15 @@ const containerStyle = {
   justifyContent: "center", // Center the button horizontally
   alignItems: "center", // Center the button vertically
   minHeight: "60vh", // Ensure the container takes up the full viewport height
-  maxHeight: "100vh",
+  maxHeight: "80vh",
+  overflow: "hidden",
+  "background-color": "gray",
+  position: "relative",
 };
 
 function GameBoard(props) {
   return (
-    <div style={containerStyle}>
+    <div id="GameBoard" style={containerStyle}>
       <CookieButton
         className="CookieButton"
         incrementScore={props.incrementScore}
