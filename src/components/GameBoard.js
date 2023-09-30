@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import CookieButton from "./CookieButton";
+import AutoFinger from "./FingerAutoClick";
 
 const containerStyle = {
   display: "flex",
@@ -50,6 +51,7 @@ function GameBoard(props) {
           />
         ))}
       </ul>
+      <AutoFinger />
       <button style={tempAddButton} onClick={addCookie}>
         Add Cookie
       </button>

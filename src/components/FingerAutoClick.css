@@ -1,0 +1,27 @@
+/* Define the styles for the draggable object */
+.finger {
+  width: 59px;
+  /* Set the width to the desired value */
+  height: 80px;
+  /* Set the height to the desired value */
+  background-size: contain;
+  /* Ensure the entire image fits, but there may be empty space */
+  background-position: center center;
+  /* Center the image within the element */
+  position: absolute;
+  cursor: pointer;
+  user-select: none;
+  transition: transform 0.2s;
+  cursor: pointer;
+}
+
+/* Apply additional styles when the object is being dragged */
+.finger-dragging {
+  transform: scale(1.2);
+  transform-origin: top left;
+  /* Add a scale effect while dragging, adjust as needed */
+  z-index: 2;
+  /* Bring the object to the front while dragging */
+  opacity: 0.8;
+  /* Reduce opacity while dragging, adjust as needed */
+}
