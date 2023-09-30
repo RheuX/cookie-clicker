@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import './App.css';
 import Header from './components/Header';
-import CookieButton from './components/CookieButton';
+import GameBoard from "./components/GameBoard";
 import CookieDisplay from './components/CookieDisplay';
 import UpgradeButton from './components/Upgrade';
 
@@ -95,18 +95,16 @@ function App() {
   return (
     <div className="main-container">
       <Header className="Header" />
-      <div  display='flex' flex-direction='column'>
-        <CookieButton className="CookieButton" onClick={incrementScore} />
-        <div className="display-container">
-          <div className="display-item">
-            <CookieDisplay score={score} goal={goal} time={time} />
-          </div>
-          <div className="display-item">
-            <UpgradeButton
-              upgradesList={upgradesList}
-              onUpgradeClick={handleUpgradeClick}
-            />
-          </div>
+      <GameBoard incrementScore={incrementScore} />
+      <div className="display-container">
+        <div className="display-item">
+          <CookieDisplay score={score} />
+        </div>
+        <div className="display-item">
+          <UpgradeButton
+            upgradesList={upgradesList}
+            onUpgradeClick={handleUpgradeClick}
+          />
         </div>
       </div>
     </div>
