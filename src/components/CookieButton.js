@@ -1,14 +1,15 @@
 import React, { useState, useRef, useEffect } from "react";
-import cookieImage from '../assets/CookiePic.png';
+import brownCookie from '../assets/Brown Cookie.png';
 
 const cookieButtonStyle = {
   width: "100px",
   height: "100px",
-  backgroundImage: `url(${cookieImage})`, // Use the imported cookieImage as the background
+  backgroundImage: `url(${brownCookie})`, // Use the imported cookieImage as the background
   backgroundSize: "cover",
   backgroundRepeat: "no-repeat",
   backgroundPosition: "center",
-  borderRadius: "50%",
+  "background-color": "transparent",
+  borderRadius: "25%",
   cursor: "pointer",
   border: "none", // Remove the button border if desired
   position: "absolute",

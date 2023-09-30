@@ -98,7 +98,7 @@ function App() {
       <GameBoard incrementScore={incrementScore} />
       <div className="display-container">
         <div className="display-item">
-          <CookieDisplay score={score} />
+          <CookieDisplay score={score} time={time} goal={goal}/>
         </div>
         <div className="display-item">
           <UpgradeButton

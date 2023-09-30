@@ -8,7 +8,7 @@ const containerStyle = {
   minHeight: "60vh", // Ensure the container takes up the full viewport height
   maxHeight: "80vh",
   overflow: "hidden",
-  "background-color": "gray",
+  "background-color": "grey",
   position: "relative",
 };
 
