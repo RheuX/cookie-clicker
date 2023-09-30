@@ -64,6 +64,7 @@ function App() {
       setIsPaused(!isPaused);
   };
 
+  //function to control start and pause
   const startAndPause = () => {
     if(time === 0) {
       handleStart();
@@ -73,15 +74,17 @@ function App() {
     }
   }
 
+  //Function to increment the score
   const incrementScore = () => { //everytime you click, you get cookie
     startAndPause();
     setScore(score + upgrade);
   }
 
+  //Function to handle the upgrade
   const handleUpgradeClick = (value, id) => {
     let cost = upgradeCosts[id];
     if(score >= cost) { //if you have enough cookie, upgrade
-      setUpgrade(upgrade + value);
+      setUpgrade(upgrade + value); //if id element is between 0-2, if 3-5 is the auto upgrade which should spawn an object (havent been implemented yet)
       setScore(score - cost);
       updateUpgrade(id);
     }
