@@ -6,7 +6,7 @@
   border-radius: 10px; /* Add round corners */
   border: 2px solid black; /* Add a black outline */
   font-family: 'Squada One';
-  
+  margin: 0 10px
 }
 
 .header h1 {

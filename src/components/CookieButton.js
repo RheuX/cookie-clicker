@@ -38,7 +38,6 @@ function CookieButton(props) {
     };
   }, []);
 
-  // 
   const handleClick = () => {
     setClickCount((clickCount) => clickCount + 1);
 
@@ -74,7 +73,6 @@ function CookieButton(props) {
       setClickCount(0);
     }
     //====================================================
-
     props.incrementScore();
   };
 
