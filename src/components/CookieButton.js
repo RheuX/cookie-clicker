@@ -14,7 +14,7 @@ const cookieButtonStyle = {
   border: "none", // Remove the button border if desired
   position: "absolute",
   top: "40%",
-  left: "50%",
+  left: "45%",
 };
 
 function CookieButton(props) {
@@ -22,6 +22,7 @@ function CookieButton(props) {
   const max_click = 1;
   const buttonRef = useRef(null); // Create a ref to hold a reference to the button element
 
+  /*
   useEffect(() => {
     var randomX = 0.15 + Math.random() * 0.6;
     var randomY = 0.1 + Math.random() * 0.8;
@@ -38,6 +39,7 @@ function CookieButton(props) {
     return () => {
     };
   }, []);
+*/
 
   const handleClick = () => {
     setClickCount((clickCount) => clickCount + 1);
