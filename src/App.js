@@ -3,6 +3,7 @@ import './App.css';
 import Header from './components/Header';
 import GameBoard from "./components/GameBoard";
 import CookieDisplay from './components/CookieDisplay';
+import CookieJar from "./components/CookieJar";
 import UpgradeButton from './components/Upgrade';
 
 function App() {
@@ -18,7 +19,7 @@ function App() {
   const [time, setTime] = useState(0);
 
   //The goal for the game
-  const goal = 100000;
+  const goal = 20;
 
   //State for the upgrade list for each button
   // Below is just to ignore the warning that `setUpgradeCost` is not being used
@@ -97,8 +98,9 @@ function App() {
       <Header className="Header" />
       <GameBoard incrementScore={incrementScore} />
       <div className="display-container">
+        <CookieJar score={score} goal={goal}></CookieJar>
         <div className="display-item">
-          <CookieDisplay score={score} time={time} goal={goal}/>
+          <CookieDisplay score={score} time={time} goal={goal} />
         </div>
         <div className="display-item">
           <UpgradeButton

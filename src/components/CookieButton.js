@@ -8,7 +8,7 @@ const cookieButtonStyle = {
   backgroundSize: "cover",
   backgroundRepeat: "no-repeat",
   backgroundPosition: "center",
-  "background-color": "transparent",
+  backgroundColor: "transparent",
   borderRadius: "25%",
   cursor: "pointer",
   border: "none", // Remove the button border if desired

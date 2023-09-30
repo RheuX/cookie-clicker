@@ -39,6 +39,7 @@ body {
 
 /* Both CookieDisplay and UpgradeButton takes 25% of the screen */
 .display-container {
+  position: relative;
   display: grid;
   flex: 1;
   grid-template-columns: 1fr 1fr;
