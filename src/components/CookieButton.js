@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, { useState, useRef, useEffect } from "react";
 import cookieImage from '../assets/CookiePic.png';
 
 const cookieButtonStyle = {
@@ -12,23 +12,31 @@ const cookieButtonStyle = {
   cursor: "pointer",
   border: "none", // Remove the button border if desired
   position: "absolute",
-  top: "75%",
-  left: "90%",
-};
-
-const containerStyle = {
-  display: 'flex',
-  justifyContent: 'center', // Center the button horizontally
-  alignItems: 'center', // Center the button vertically
-  minHeight: '60vh', // Ensure the container takes up the full viewport height
-  maxHeight: '100vh',
-  overflow: 'hidden',
-  'background-color': 'gray',
-  position: "relative",
+  top: "40%",
+  left: "50%",
 };
 
 function CookieButton(props) {
   const [clickCount, setClickCount] = useState(0);
+  const max_click = 1;
+  const buttonRef = useRef(null); // Create a ref to hold a reference to the button element
+
+  useEffect(() => {
+    var randomX = 0.15 + Math.random() * 0.6;
+    var randomY = 0.1 + Math.random() * 0.8;
+    randomX = randomX.toFixed(2);
+    randomY = randomY.toFixed(2);
+
+    console.log(randomX);
+    buttonRef.current.style.top = randomX * 100 + "%";
+    buttonRef.current.style.left = randomY * 100 + "%";
+
+    console.log(buttonRef.current.style.top);
+    setClickCount(0);
+
+    return () => {
+    };
+  }, []);
 
   const handleClick = () => {
     setClickCount((clickCount) => clickCount + 1);
@@ -36,11 +44,11 @@ function CookieButton(props) {
     // Call the parent's onClick function to update the score
 
     // Get a reference to the .flex-container element
-    var flexContainer = document.getElementById("flex-container");
+    var gameBoard = document.getElementById("GameBoard");
 
     // Get the width and height of the .flex-container
-    var containerWidth = flexContainer.offsetWidth;
-    var containerHeight = flexContainer.offsetHeight;
+    var containerWidth = gameBoard.offsetWidth;
+    var containerHeight = gameBoard.offsetHeight;
 
     // Log the dimensions (for example)
     console.log(
@@ -51,80 +59,29 @@ function CookieButton(props) {
     );
 
     //====================================================
-    if (clickCount >= 9)
-    {
-      var button = document.getElementById("cookie");
-      var randomX = 0.15 + Math.random() * 0.6;
-      var randomY = 0.1 + Math.random() * 0.8;
-      randomX = randomX.toFixed(2);
-      randomY = randomY.toFixed(2);
-      
-      console.log(randomX); 
-      button.style.top = randomX * 100 +"%";
-      button.style.left = randomY * 100 + "%";
-
-      console.log(button.style.top);
-      setClickCount(0);
-    }
-    //====================================================
-
-    props.onClick();
-  };
-
-  const handleClick2 = () => {
-    setClickCount((clickCount) => clickCount + 1);
-
-    // Call the parent's onClick function to update the score
-
-    // Get a reference to the .flex-container element
-    var flexContainer = document.getElementById("flex-container");
-
-    // Get the width and height of the .flex-container
-    var containerWidth = flexContainer.offsetWidth;
-    var containerHeight = flexContainer.offsetHeight;
-
-    // Log the dimensions (for example)
-    console.log(
-      "Container Width:",
-      containerWidth,
-      "Container Height:",
-      containerHeight
-    );
-
-    //====================================================
-    if (clickCount >= 9) {
-      var button = document.getElementById("cookie-2");
+    if (clickCount >= max_click) {
       var randomX = 0.15 + Math.random() * 0.6;
       var randomY = 0.1 + Math.random() * 0.8;
       randomX = randomX.toFixed(2);
       randomY = randomY.toFixed(2);
 
       console.log(randomX);
-      button.style.top = randomX * 100 + "%";
-      button.style.left = randomY * 100 + "%";
+      buttonRef.current.style.top = randomX * 100 + "%";
+      buttonRef.current.style.left = randomY * 100 + "%";
 
-      console.log(button.style.top);
+      console.log(buttonRef.current.style.top);
       setClickCount(0);
     }
     //====================================================
-
-    props.onClick();
+    props.incrementScore();
   };
 
   return (
-    <div id="flex-container" style={containerStyle}>
-      <button
-        id="cookie"
-        style={cookieButtonStyle}
-        onClick={handleClick}
-      ></button>
-
-      <button
-        id="cookie-2"
-        style={cookieButtonStyle}
-        onClick={handleClick2}
-      ></button>
-    </div>
+    <button
+      ref={buttonRef}
+      style={cookieButtonStyle}
+      onClick={handleClick}
+    ></button>
   );
 }
 
