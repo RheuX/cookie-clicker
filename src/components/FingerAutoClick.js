@@ -6,6 +6,34 @@ function FingerAutoClick(ref) {
   const [position, setPosition] = useState({ x: 0, y: 0 });
   const isDraggingRef = useRef(false);
   const fingerRef = useRef(null);
+  const [cookieList, setCookieList] = useState([
+    { id: 0, pos_x: 0, pos_y: 0 },
+  ]);
+
+  const updatePos = (id, newPos) => {
+    setCookieList((currCookieList) =>
+      currCookieList.map((cookie) =>
+        cookie.id === id ? { ...cookie, pos_x: newPos.x, pos_y: newPos.y } : cookie
+      )
+    );
+  };
+
+  const addCookie = (id_offset, newPos) => {
+    setCookieList((currCookieList) => [
+      ...currCookieList,
+      { //newCookie
+        id: id_offset,
+        pos_x: newPos.x,
+        pos_y: newPos.y,
+      },
+    ]);
+  };
+
+  const removeCookie = (id) => {
+    setCookieList((currCookieList) =>
+      currCookieList.filter((cookie) => cookie.id !== id)
+    );
+  };
 
   const handleMouseDown = (e) => {
     isDraggingRef.current = true; // Set the reference to true
@@ -51,6 +79,7 @@ function FingerAutoClick(ref) {
 
   return (
     <div
+      id="AutoFinger"
       ref={fingerRef}
       className="finger"
       onMouseDown={handleMouseDown}

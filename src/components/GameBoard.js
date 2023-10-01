@@ -26,8 +26,6 @@ function GameBoard(props) {
   ]);
   const [idCounter, setIdCounter] = useState(1);
 
-  const fingerRef = React.createRef()
-
   const addCookie = () => {
     const newCookie = {
       id: idCounter,
@@ -40,37 +38,40 @@ function GameBoard(props) {
     setCookieList((cookieList) => [...cookieList, newCookie]);
   };
 
-  /*
   useEffect(() => {
   const collisionInterval = setInterval(() => {
-    const fingerRect = fingerRef.current?.getBoundingClientRect();
-    if (fingerRect) {
-      console.log("Finger is here!")
-      cookieList.forEach((cookie) => {
-        const cookieRect = {
-          left: cookie.left,
-          right: cookie.left + 100, // Adjust the width of your cookies
-          top: cookie.top,
-          bottom: cookie.top + 100, // Adjust the height of your cookies
-        };
-        if (
-          fingerRect.left < cookieRect.right &&
-          fingerRect.right > cookieRect.left &&
-          fingerRect.top < cookieRect.bottom &&
-          fingerRect.bottom > cookieRect.top
-        ) {
-          // Collision detected, increment the score
-          props.incrementScore();
+    if (props.isVisible) {
+      const fingerElement = document.getElementById("AutoFinger");
+      if (fingerElement) {
+        const fingerRect = fingerElement.getBoundingClientRect();
+        console.log(fingerRect);
+        cookieList.forEach((cookie) => {
+          const cookieRect = {
+            left: cookie.left, // Replace with the actual property names from your cookie objects
+            right: cookie.left + 100, // Adjust the width of your cookies
+            top: cookie.top, // Replace with the actual property names from your cookie objects
+            bottom: cookie.top + 100, // Adjust the height of your cookies
+          };
+          console.log(cookieRect);
+          if (
+            fingerRect.left < cookieRect.right &&
+            fingerRect.right > cookieRect.left &&
+            fingerRect.top < cookieRect.bottom &&
+            fingerRect.bottom > cookieRect.top
+          ) {
+            // Collision detected, increment the score
+            console.log("hit");
+            //props.incrementScore();
+            }
+          });
         }
-      });
-    }
-  }, 1000); // Adjust the interval as needed
+      }
+    }, 1000); // Adjust the interval as needed
+    return () => {
+      clearInterval(collisionInterval); // Cleanup on component unmount
+    };
+  }, [props.isVisible, cookieList]);
 
-  return () => {
-    clearInterval(collisionInterval); // Cleanup on component unmount
-  };
-}, [cookieList, props]);
-  */
   return (
     <div id="GameBoard" style={containerStyle}>
       <ul>
