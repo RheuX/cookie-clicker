@@ -89,6 +89,7 @@ function GameBoard(props) {
             key={cookie.id}
             className="CookieButton"
             incrementScore={props.incrementScore}
+            lostGame={props.lostGame}
             removeFake={removeFake}
             removeCookie={() => removeCookie(cookie.id)}
             is_docoy={cookie.id !== 0}

@@ -8,6 +8,7 @@ import fakeCookie_4 from "../assets/Cookie_F_08.png";
 import fakeCookie_5 from "../assets/Cookie_F_01.png";
 import fakeCookie_6 from "../assets/Cookie_F_03.png";
 import fakeCookie_7 from "../assets/Cookie_F_05.png";
+import deathCookie from "../assets/DeathCookie.png";
 
 const cookieButtonStyle = {
   width: "100px",
@@ -36,9 +37,10 @@ const fakeCookies = [
   fakeCookie_7,
 ];
 
-const speed = [0.0, 0.0, 1.0, 0.8, 0.0];
-const tpInterval = [100000.0, 200.0, 100.0, 180, 0.0];
-const max_click = [10000, 3, 3, 1, 100];
+const speed = [0.0, 0.0, 1.0, 0.8, 0.0, 0.0];
+const tpInterval = [100000.0, 200.0, 100.0, 220, 0.0, 0.0];
+const max_click = [10000, 3, 3, 1, 100, 1];
+const deadCookieShowTime = 50;
 
 function CookieButton(props) {
   const [clickCount, setClickCount] = useState(0);
@@ -46,6 +48,8 @@ function CookieButton(props) {
   const [direction, setDirection] = useState([1.0, 1.0]);
   const [dirAngle, setDirAngle] = useState(0.0);
   const [moved, setMoved] = useState(false);
+  const [deadCookie, setDeadCookie] = useState(-1);
+  const [deadCookieTimer, setDeadCookieTimer] = useState(deadCookieShowTime);
   const buttonRef = useRef(null); // Create a ref to hold a reference to the button element
 
   useEffect(() => {
@@ -55,7 +59,27 @@ function CookieButton(props) {
 
     check_teleport();
 
-    if (!moved && props.stage === 3) {
+    if (props.stage === 4) {
+      if (deadCookieTimer >= 0) {
+        setDeadCookieTimer((deadCookieTimer) => {
+          if (deadCookieTimer === -1) return -1;
+          if (deadCookieTimer === 0) {
+            buttonRef.current.style.backgroundImage = `url(${brownCookie})`;
+            setDeadCookie(clickCount + Math.floor(Math.random() * 3) + 2);
+
+            return -1;
+          }
+
+          return deadCookieTimer - 1;
+        });
+      }
+    }
+
+    if (props.is_docoy && props.stage !== 3) {
+      props.removeCookie();
+    }
+
+    if (props.stage === 3 && !moved) {
       buttonRef.current.style.top = props.position[0];
       buttonRef.current.style.left = props.position[1];
 
@@ -96,10 +120,21 @@ function CookieButton(props) {
   }, [props.time]); // end of time update event =============================
 
   useEffect(() => {
-    const sizeFactors = [1.0, 0.8, 0.7, 0.6, 0.5, 0.4];
+    const sizeFactors = [1.0, 0.8, 0.7, 0.6, 1.0, 2.0];
 
     buttonRef.current.style.width = 130.0 * sizeFactors[props.stage] + "px";
     buttonRef.current.style.height = 130.0 * sizeFactors[props.stage] + "px";
+
+    if (props.stage === 4) {
+      buttonRef.current.style.top = "40%";
+      buttonRef.current.style.left = "45%";
+
+      setDeadCookie(clickCount + Math.floor(Math.random() * 4) + 3);
+    }
+
+    if (props.stage === 5) {
+      buttonRef.current.style.backgroundImage = `url(${brownCookie})`;
+    }
   }, [props.stage]);
 
   // check for if cookie should teleport
@@ -146,16 +181,32 @@ function CookieButton(props) {
     setTimeCount(0);
   };
 
-  const handleClick = () => {
-    setClickCount((clickCount) => clickCount + 1);
+  const check_dead_cookie = () => {
+    if (clickCount === deadCookie - 1) {
+      buttonRef.current.style.backgroundImage = `url(${deathCookie})`;
 
+      setDeadCookieTimer(deadCookieShowTime);
+    }
+
+    if (clickCount === deadCookie && deadCookieTimer > 0) {
+      props.lostGame();
+      buttonRef.current.style.backgroundImage = `url(${brownCookie})`;
+    }
+  };
+
+  const handleClick = () => {
     if (props.is_docoy === true) {
       props.incrementScore(false);
       props.removeCookie();
-    } else {
+    } 
+    else if (props.stage === 5) {
+      // game finished
+    }
+    else {
       props.incrementScore();
       setClickCount((clickCount) => clickCount + 1);
       check_teleport();
+      check_dead_cookie();
     }
   };
 
