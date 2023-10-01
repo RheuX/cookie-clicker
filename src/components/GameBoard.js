@@ -94,10 +94,7 @@ function GameBoard(props) {
             is_docoy={cookie.id !== 0}
             time={props.time}
             stage={props.stage}
-            teleportInterval={150.0}
             direction={cookie.dir}
-            speed={1.0}
-            max_click={1}
             position={cookie.pos}
           />
         ))}

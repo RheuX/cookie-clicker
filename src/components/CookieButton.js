@@ -1,6 +1,13 @@
 import React, { useState, useRef, useEffect } from "react";
-import brownCookie from "../assets/Brown Cookie.png";
-import redCookie from "../assets/Red Cookie.png";
+import brownCookie from "../assets/Cookie_R_01.png";
+import fakeCookie_0 from "../assets/Cookie_F_00.png";
+import fakeCookie_1 from "../assets/Cookie_F_02.png";
+import fakeCookie_2 from "../assets/Cookie_F_04.png";
+import fakeCookie_3 from "../assets/Cookie_F_06.png";
+import fakeCookie_4 from "../assets/Cookie_F_08.png";
+import fakeCookie_5 from "../assets/Cookie_F_01.png";
+import fakeCookie_6 from "../assets/Cookie_F_03.png";
+import fakeCookie_7 from "../assets/Cookie_F_05.png";
 
 const cookieButtonStyle = {
   width: "100px",
@@ -17,6 +24,21 @@ const cookieButtonStyle = {
   top: "40%",
   left: "45%",
 };
+
+const fakeCookies = [
+  fakeCookie_0,
+  fakeCookie_1,
+  fakeCookie_2,
+  fakeCookie_3,
+  fakeCookie_4,
+  fakeCookie_5,
+  fakeCookie_6,
+  fakeCookie_7,
+];
+
+const speed = [0.0, 0.0, 1.0, 0.8, 0.0];
+const tpInterval = [100000.0, 200.0, 100.0, 180, 0.0];
+const max_click = [10000, 3, 3, 1, 100];
 
 function CookieButton(props) {
   const [clickCount, setClickCount] = useState(0);
@@ -39,7 +61,8 @@ function CookieButton(props) {
 
       setDirection(props.direction);
       if (props.is_docoy) {
-        buttonRef.current.style.backgroundImage = `url(${redCookie})`;
+        const index = Math.floor(Math.random() * 8);
+        buttonRef.current.style.backgroundImage = `url(${fakeCookies[index]})`;
       }
     }
 
@@ -52,11 +75,11 @@ function CookieButton(props) {
       let y = parseFloat(buttonRef.current.style.left.replace("%", ""));
       const factor = 0.2;
 
-      
       var gameBoard = document.getElementById("GameBoard");
+      var width_highet_ratio = gameBoard.offsetHeight / gameBoard.offsetWidth;
 
-      x += props.speed * direction[0] * factor;
-      y += props.speed * direction[1] * factor * gameBoard.offsetHeight / gameBoard.offsetWidth;
+      x += speed[props.stage] * direction[0] * factor;
+      y += speed[props.stage] * direction[1] * factor * width_highet_ratio;
 
       x = x.toFixed(3);
       y = y.toFixed(3);
@@ -75,8 +98,8 @@ function CookieButton(props) {
   useEffect(() => {
     const sizeFactors = [1.0, 0.8, 0.7, 0.6, 0.5, 0.4];
 
-    buttonRef.current.style.width = 100.0 * sizeFactors[props.stage] + "px";
-    buttonRef.current.style.height = 100.0 * sizeFactors[props.stage] + "px";
+    buttonRef.current.style.width = 130.0 * sizeFactors[props.stage] + "px";
+    buttonRef.current.style.height = 130.0 * sizeFactors[props.stage] + "px";
   }, [props.stage]);
 
   // check for if cookie should teleport
@@ -86,7 +109,10 @@ function CookieButton(props) {
       return;
     }
 
-    if (clickCount >= props.max_click || timeCount >= props.teleportInterval) {
+    if (
+      clickCount >= max_click[props.stage] ||
+      timeCount >= tpInterval[props.stage]
+    ) {
       teleport();
     }
   };
@@ -105,7 +131,7 @@ function CookieButton(props) {
     setDirAngle(() => {
       const passIn = randomAngle;
 
-      if (!props.is_docoy && clickCount >= props.max_click) {
+      if (!props.is_docoy && clickCount >= max_click[props.stage]) {
         props.removeFake(passIn, [
           buttonRef.current.style.top,
           buttonRef.current.style.left,
@@ -122,13 +148,6 @@ function CookieButton(props) {
 
   const handleClick = () => {
     setClickCount((clickCount) => clickCount + 1);
-
-    
-    var gameBoard = document.getElementById("GameBoard");
-
-    // Get the width and height of the .flex-container
-    var containerWidth = gameBoard.offsetWidth;
-    var containerHeight = gameBoard.offsetHeight;
 
     if (props.is_docoy === true) {
       props.incrementScore(false);
