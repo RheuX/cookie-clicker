@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import CookieButton from "./CookieButton";
 import AutoFinger from "./FingerAutoClick";
 
@@ -24,9 +24,10 @@ function GameBoard(props) {
   const [cookieList, setCookieList] = useState([
     { id: 0, text: "Cookie 0" },
   ]);
-  const [idCounter, setIdCounter] = useState(1); 
+  const [idCounter, setIdCounter] = useState(1);
 
-  
+  const fingerRef = React.createRef()
+
   const addCookie = () => {
     const newCookie = {
       id: idCounter,
@@ -39,6 +40,37 @@ function GameBoard(props) {
     setCookieList((cookieList) => [...cookieList, newCookie]);
   };
 
+  /*
+  useEffect(() => {
+  const collisionInterval = setInterval(() => {
+    const fingerRect = fingerRef.current?.getBoundingClientRect();
+    if (fingerRect) {
+      console.log("Finger is here!")
+      cookieList.forEach((cookie) => {
+        const cookieRect = {
+          left: cookie.left,
+          right: cookie.left + 100, // Adjust the width of your cookies
+          top: cookie.top,
+          bottom: cookie.top + 100, // Adjust the height of your cookies
+        };
+        if (
+          fingerRect.left < cookieRect.right &&
+          fingerRect.right > cookieRect.left &&
+          fingerRect.top < cookieRect.bottom &&
+          fingerRect.bottom > cookieRect.top
+        ) {
+          // Collision detected, increment the score
+          props.incrementScore();
+        }
+      });
+    }
+  }, 1000); // Adjust the interval as needed
+
+  return () => {
+    clearInterval(collisionInterval); // Cleanup on component unmount
+  };
+}, [cookieList, props]);
+  */
   return (
     <div id="GameBoard" style={containerStyle}>
       <ul>
@@ -51,7 +83,7 @@ function GameBoard(props) {
           />
         ))}
       </ul>
-      <AutoFinger />
+      {props.isVisible && <AutoFinger />}
       <button style={tempAddButton} onClick={addCookie}>
         Add Cookie
       </button>
