@@ -63,13 +63,7 @@ function GameBoard(props) {
     setCookieList((cookieList) => cookieList.slice(0, 1));
 
     console.log(
-      "0: " +
-        (dirAngle * 360) / (2 * Math.PI) +
-        "  - [" +
-        Math.cos(dirAngle) +
-        ", " +
-        Math.sin(dirAngle) +
-        "]"
+      "0: " + dirAngle
     );
 
     if (props.stage === 3) {
@@ -77,15 +71,7 @@ function GameBoard(props) {
       // create decoy
       for (let i = 1; i <= decoy_amount; i++) {
         const decoyAngle = (dirAngle + i * deltaAngle) % (2 * Math.PI);
-        console.log(
-          "i: " +
-            (decoyAngle * 360) / (2 * Math.PI) +
-            "  - [" +
-            Math.cos(decoyAngle) +
-            ", " +
-            Math.sin(decoyAngle) +
-            "]"
-        );
+        
         addCookie(
           i,
           [Math.cos(decoyAngle), Math.sin(decoyAngle)],
