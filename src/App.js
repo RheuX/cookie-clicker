@@ -45,7 +45,7 @@ function App() {
     if (isActive && isPaused === false) {
       interval = setInterval(() => {
         setTime((time) => time + 10);
-        if (time % 100 == 0) {
+        if (time % 100 === 0) {
           setTime_100ms((time_100ms) => time_100ms + 1);
         }
       }, 10);
@@ -104,7 +104,7 @@ function App() {
   return (
     <div className="main-container">
       <Header className="Header" />
-      <GameBoard incrementScore={incrementScore} time={time_100ms} />
+      <GameBoard incrementScore={incrementScore} time={time_100ms} stage={3}/>
       <div className="display-container">
         <CookieJar score={score} goal={goal}></CookieJar>
         <div className="display-item">

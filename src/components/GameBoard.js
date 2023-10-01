@@ -21,18 +21,32 @@ const tempAddButton = {
 
 function GameBoard(props) {
   const [cookieList, setCookieList] = useState([
-    { id: 0, text: "Cookie 0" },
+    { id: 0, dir: [-1.0, -1.0], pos: ["10%", "15%"] },
   ]);
-  const [idCounter, setIdCounter] = useState(1); 
+  const [idCounter, setIdCounter] = useState(1);
+  const decoy_amount = 5;
 
-  
-  const addCookie = () => {
+  const updateDir = (id, newDir) => {
+    setCookieList((prevCookieList) => {
+      // Create a new array by mapping over the previous 'cookieList'
+      return prevCookieList.map((cookie) => {
+        if (cookie.id === id) {
+          // Update the 'dir' property for the specific item
+          return { ...cookie, dir: newDir };
+        }
+        return cookie; // Return unchanged items
+      });
+    });
+  };
+
+  const addCookie = (id_offset, newDir, newPos) => {
     const newCookie = {
-      id: idCounter,
-      text: `Cookie ${idCounter}`,
+      id: idCounter + id_offset,
+      dir: newDir,
+      pos: newPos,
     };
 
-    setIdCounter((idCounter) => idCounter + 1);
+    setIdCounter((idCounter) => idCounter + 1 + id_offset);
 
     // Use the spread operator to create a new array with the new item added
     setCookieList((cookieList) => [...cookieList, newCookie]);
@@ -45,6 +59,42 @@ function GameBoard(props) {
     );
   };
 
+  const removeFake = (dirAngle, cookie_position) => {
+    setCookieList((cookieList) => cookieList.slice(0, 1));
+
+    console.log(
+      "0: " +
+        (dirAngle * 360) / (2 * Math.PI) +
+        "  - [" +
+        Math.cos(dirAngle) +
+        ", " +
+        Math.sin(dirAngle) +
+        "]"
+    );
+
+    if (props.stage === 3) {
+      const deltaAngle = (2 * Math.PI) / (1 + decoy_amount);
+      // create decoy
+      for (let i = 1; i <= decoy_amount; i++) {
+        const decoyAngle = (dirAngle + i * deltaAngle) % (2 * Math.PI);
+        console.log(
+          "i: " +
+            (decoyAngle * 360) / (2 * Math.PI) +
+            "  - [" +
+            Math.cos(decoyAngle) +
+            ", " +
+            Math.sin(decoyAngle) +
+            "]"
+        );
+        addCookie(
+          i,
+          [Math.cos(decoyAngle), Math.sin(decoyAngle)],
+          cookie_position
+        );
+      }
+    }
+  };
+
   return (
     <div id="GameBoard" style={containerStyle}>
       <ul>
@@ -52,19 +102,24 @@ function GameBoard(props) {
           <CookieButton
             key={cookie.id}
             className="CookieButton"
-            text={cookie.text}
             incrementScore={props.incrementScore}
+            removeFake={removeFake}
             removeCookie={() => removeCookie(cookie.id)}
-            stage={2}
+            is_docoy={cookie.id !== 0}
             time={props.time}
-            teleportInterval={100.0}
+            stage={props.stage}
+            teleportInterval={150.0}
+            direction={cookie.dir}
             speed={1.0}
-            dir={[1.0, 1.0]}
-            max_click={3}
+            max_click={1}
+            position={cookie.pos}
           />
         ))}
       </ul>
-      <button style={tempAddButton} onClick={addCookie}>
+      <button
+        style={tempAddButton}
+        onClick={() => addCookie(0, [1.0 - 1.0], ["10%", "20%"])}
+      >
         Add Cookie
       </button>
     </div>
