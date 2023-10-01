@@ -38,6 +38,13 @@ function GameBoard(props) {
     setCookieList((cookieList) => [...cookieList, newCookie]);
   };
 
+  const removeCookie = (id) => {
+    // Use filter to create a new array without the cookie with the given id
+    setCookieList((cookieList) =>
+      cookieList.filter((cookie) => cookie.id !== id)
+    );
+  };
+
   return (
     <div id="GameBoard" style={containerStyle}>
       <ul>
@@ -47,6 +54,13 @@ function GameBoard(props) {
             className="CookieButton"
             text={cookie.text}
             incrementScore={props.incrementScore}
+            removeCookie={() => removeCookie(cookie.id)}
+            stage={2}
+            time={props.time}
+            teleportInterval={100.0}
+            speed={1.0}
+            dir={[1.0, 1.0]}
+            max_click={3}
           />
         ))}
       </ul>

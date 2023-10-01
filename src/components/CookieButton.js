@@ -19,32 +19,72 @@ const cookieButtonStyle = {
 
 function CookieButton(props) {
   const [clickCount, setClickCount] = useState(0);
-  const max_click = 1;
+  const [timeCount, setTimeCount] = useState(0);
+  const [lastUpdateTime, setLastUpdateTime] = useState(0);
   const buttonRef = useRef(null); // Create a ref to hold a reference to the button element
 
-  /*
   useEffect(() => {
-    var randomX = 0.15 + Math.random() * 0.6;
-    var randomY = 0.1 + Math.random() * 0.8;
-    randomX = randomX.toFixed(2);
-    randomY = randomY.toFixed(2);
 
-    console.log(randomX);
-    buttonRef.current.style.top = randomX * 100 + "%";
-    buttonRef.current.style.left = randomY * 100 + "%";
+    // track time passed since teleport
+    if (props.stage === 1 || props.stage === 2 || props.stage === 3)
+      setTimeCount((timeCount) => timeCount + 1);
 
-    console.log(buttonRef.current.style.top);
-    setClickCount(0);
+    
+    check_teleport();
 
-    return () => {
-    };
-  }, []);
-*/
+    // moving
+    if (props.stage === 2 || props.stage === 3)
+    {
+      let x = parseFloat(buttonRef.current.style.top.replace("%", ""));
+      let y = parseFloat(buttonRef.current.style.left.replace("%", ""));
+      const factor = 0.2;
+
+      x += props.speed * props.dir[0] * factor;
+      y += props.speed * props.dir[1] * factor;
+
+      
+      x = x.toFixed(3);
+      y = y.toFixed(3);
+
+      if (x < 15.0) x = 15.0;
+      if (x > 75.0) x = 75.0;
+      if (y < 10.0) y = 10.0;
+      if (y > 90.0) y = 90.0;
+
+      
+      buttonRef.current.style.top = x + "%";
+      buttonRef.current.style.left = y + "%";
+    }
+    
+    console.log(
+      timeCount + "stage: " + props.stage
+    );
+  }, [props.time]); // end of time update event =============================
+
+  // check for if cookie should teleport 
+  const check_teleport = () => {
+    if (props.stage < 1 || props.stage > 3) {
+      // no teleport on these stage
+      return;
+    }
+
+    if (clickCount >= props.max_click || timeCount >= props.teleportInterval) {
+      var randomX = 0.15 + Math.random() * 0.6;
+      var randomY = 0.1 + Math.random() * 0.8;
+      randomX = randomX.toFixed(3);
+      randomY = randomY.toFixed(3);
+
+      console.log(randomX);
+      buttonRef.current.style.top = randomX * 100 + "%";
+      buttonRef.current.style.left = randomY * 100 + "%";
+
+      setClickCount(0);
+      setTimeCount(0);
+    }
+  }
 
   const handleClick = () => {
     setClickCount((clickCount) => clickCount + 1);
-
-    // Call the parent's onClick function to update the score
 
     // Get a reference to the .flex-container element
     var gameBoard = document.getElementById("GameBoard");
@@ -53,30 +93,14 @@ function CookieButton(props) {
     var containerWidth = gameBoard.offsetWidth;
     var containerHeight = gameBoard.offsetHeight;
 
-    // Log the dimensions (for example)
-    console.log(
-      "Container Width:",
-      containerWidth,
-      "Container Height:",
-      containerHeight
-    );
-
-    //====================================================
-    if (clickCount >= max_click) {
-      var randomX = 0.15 + Math.random() * 0.6;
-      var randomY = 0.1 + Math.random() * 0.8;
-      randomX = randomX.toFixed(2);
-      randomY = randomY.toFixed(2);
-
-      console.log(randomX);
-      buttonRef.current.style.top = randomX * 100 + "%";
-      buttonRef.current.style.left = randomY * 100 + "%";
-
-      console.log(buttonRef.current.style.top);
-      setClickCount(0);
+    if (props.is_docoy === true) {
+      props.incrementScore(false);
+      props.removeCookie();
+    } else {
+      props.incrementScore();
+      setClickCount((clickCount) => clickCount + 1);
+      check_teleport();
     }
-    //====================================================
-    props.incrementScore();
   };
 
   return (

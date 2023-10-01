@@ -17,6 +17,7 @@ function App() {
   const [isActive, setIsActive] = useState(false);
   const [isPaused, setIsPaused] = useState(true);
   const [time, setTime] = useState(0);
+  const [time_100ms, setTime_100ms] = useState(0);
 
   //The goal for the game
   const goal = 20;
@@ -44,6 +45,9 @@ function App() {
     if (isActive && isPaused === false) {
       interval = setInterval(() => {
         setTime((time) => time + 10);
+        if (time % 100 == 0) {
+          setTime_100ms((time_100ms) => time_100ms + 1);
+        }
       }, 10);
     } 
     else {
@@ -74,9 +78,13 @@ function App() {
     }
   }
 
-  const incrementScore = () => { //everytime you click, you get cookie
+  const incrementScore = (increment = true) => { //everytime you click, you get cookie
     startAndPause();
-    setScore(score + upgrade);
+    if (increment)
+      setScore(score + upgrade);
+    else
+      setScore(score - 1);
+
   }
 
   const handleUpgradeClick = (value, id) => {
@@ -96,7 +104,7 @@ function App() {
   return (
     <div className="main-container">
       <Header className="Header" />
-      <GameBoard incrementScore={incrementScore} />
+      <GameBoard incrementScore={incrementScore} time={time_100ms} />
       <div className="display-container">
         <CookieJar score={score} goal={goal}></CookieJar>
         <div className="display-item">
