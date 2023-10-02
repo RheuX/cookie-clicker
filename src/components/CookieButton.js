@@ -88,14 +88,7 @@ function CookieButton(props) {
 
       setDirection(props.direction);
       if (props.is_docoy) {
-        let index = Math.floor(Math.random() * 8);
-        if (index === 7) {
-          setIsAmongUs(true);
-        }
-        
-        if (index === 7 && direction[1] > 0) {
-          index = 8;
-        }
+        let index = Math.floor(Math.random() * 7);
         buttonRef.current.style.backgroundImage = `url(${fakeCookies[index]})`;
       }
     }
