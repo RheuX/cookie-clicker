@@ -8,7 +8,7 @@ import UpgradeButton from "./components/Upgrade";
 
 function App() {
   //State for a managing the score
-  const [score, setScore] = useState(0);
+  const [score, setScore] = useState(30);
   const [stage, setStage] = useState(0);
 
   //State for managing the upgrade increment
@@ -21,7 +21,7 @@ function App() {
   const [time_100ms, setTime_100ms] = useState(0);
 
   //The goal for the game
-  const goal = 20;
+  const goal = 50;
 
   //State for the upgrade list for each button
   // Below is just to ignore the warning that `setUpgradeCost` is not being used

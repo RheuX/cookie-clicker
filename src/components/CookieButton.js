@@ -5,9 +5,10 @@ import fakeCookie_1 from "../assets/Cookie_F_02.png";
 import fakeCookie_2 from "../assets/Cookie_F_04.png";
 import fakeCookie_3 from "../assets/Cookie_F_06.png";
 import fakeCookie_4 from "../assets/Cookie_F_08.png";
-import fakeCookie_5 from "../assets/Cookie_F_01.png";
-import fakeCookie_6 from "../assets/Cookie_F_03.png";
-import fakeCookie_7 from "../assets/Cookie_F_05.png";
+import fakeCookie_5 from "../assets/Cookie_F_10.png";
+import fakeCookie_6 from "../assets/Cookie_F_11.png";
+import fakeCookie_7 from "../assets/Cookie_F_12.png";
+import fakeCookie_8 from "../assets/Cookie_F_13.png";
 import deathCookie from "../assets/DeathCookie.png";
 
 const cookieButtonStyle = {
@@ -35,10 +36,11 @@ const fakeCookies = [
   fakeCookie_5,
   fakeCookie_6,
   fakeCookie_7,
+  fakeCookie_8,
 ];
 
-const speed = [0.0, 0.0, 1.0, 0.8, 0.0, 0.0];
-const tpInterval = [100000.0, 200.0, 100.0, 220, 0.0, 0.0];
+const speed = [0.0, 0.0, 1.0, 0.6, 0.0, 0.0];
+const tpInterval = [100000.0, 200.0, 100.0, 250, 0.0, 0.0];
 const max_click = [10000, 3, 3, 1, 100, 1];
 const deadCookieShowTime = 50;
 
@@ -50,6 +52,7 @@ function CookieButton(props) {
   const [moved, setMoved] = useState(false);
   const [deadCookie, setDeadCookie] = useState(-1);
   const [deadCookieTimer, setDeadCookieTimer] = useState(deadCookieShowTime);
+  const [isAmongUs, setIsAmongUs] = useState(false);
   const buttonRef = useRef(null); // Create a ref to hold a reference to the button element
 
   useEffect(() => {
@@ -85,7 +88,14 @@ function CookieButton(props) {
 
       setDirection(props.direction);
       if (props.is_docoy) {
-        const index = Math.floor(Math.random() * 8);
+        let index = Math.floor(Math.random() * 8);
+        if (index === 7) {
+          setIsAmongUs(true);
+        }
+        
+        if (index === 7 && direction[1] > 0) {
+          index = 8;
+        }
         buttonRef.current.style.backgroundImage = `url(${fakeCookies[index]})`;
       }
     }
@@ -174,6 +184,19 @@ function CookieButton(props) {
       }
 
       setDirection([Math.cos(randomAngle), Math.sin(randomAngle)]);
+      
+      if (props.is_docoy && isAmongUs) {
+        let index = 7;
+        if (Math.sin(randomAngle) > 0) {
+          index = 8;
+        }
+        buttonRef.current.style.backgroundImage = `url(${fakeCookies[index]})`;
+      }
+
+      if (props.is_docoy && Math.floor(Math.random() * 10 < 2)) {
+        setIsAmongUs(true);
+      }
+
       return randomAngle;
     });
 
