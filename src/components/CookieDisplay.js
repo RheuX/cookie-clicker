@@ -27,7 +27,7 @@ function CookieDisplay(props) {
           </p>
         </div>
         <div className='cell'>
-          <p>Best Time:</p>
+          <p>Best Time: 00:20.55</p>
         </div>
       </div>
     </div>
