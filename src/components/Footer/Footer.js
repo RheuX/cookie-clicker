@@ -1,24 +1,29 @@
 import React from "react";
-import Row from "./Row";
-import Cell from "./cell";
-import Timer from "./Timer";
-// import "./Footer.css";
+import { useSelector } from "react-redux";
+import ScoreBoard from "./ScoreBoard/ScoreBoard";
+import CookieJar from "./CookieJar";
+import UpgradeBoard from "./UpgradeBoard/UpgradeBoard";
+
+const footerStyle = {
+  position: "relative",
+  display: "grid",
+  flex: 1,
+  gridTemplateColumns: "1fr 1fr",
+  border: "2px solid black",
+  backgroundColor: "#b97a57",
+  borderRadius: "10px",
+  margin: "0 10px",
+};
 
 function Footer(props) {
   const score = useSelector((state) => state.score.value);
   const goal = useSelector((state) => state.gameState.goal);
   
   return (
-    <div className="display-cookie">
-      <Row>
-        <Cell><p>Your Cookies: {score}</p></Cell>
-        <Cell><p>Goal: {goal}</p></Cell>
-      </Row>
-
-      <Row>
-        <Cell><Timer/></Cell>
-        <Cell><p>Best Time: 00:20.55</p></Cell>
-      </Row>
+    <div style={footerStyle}>
+      <ScoreBoard />
+      <CookieJar />
+      <UpgradeBoard />
     </div>
   );
 }

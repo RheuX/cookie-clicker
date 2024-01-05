@@ -1,9 +1,9 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-    // upgrade index 0-5
   value: 0,
-  cost: [0,0,0,0,0,0],
+  // upgrade index 0-5
+  cost: [0, 0, 0, 0, 0, 0],
 };
 
 const upgradeSlice = createSlice({
@@ -11,8 +11,10 @@ const upgradeSlice = createSlice({
   state: initialState,
   reducers: {
     setUpgrade(state, action) {
-      const { index, amount } = action.payload;
-      state.value = amount;
+      state.value = action.payload;
+    },
+    incrementUpgrade(state, action) {
+      state.value += action.payload;
     },
     setCost(state, action) {
       const { index, amount } = action.payload;
@@ -21,5 +23,9 @@ const upgradeSlice = createSlice({
   },
 });
 
-export const { setUpgrade: setUpgrade, setCost: setCost } = upgradeSlice.actions;
+export const {
+  setUpgrade: setUpgrade,
+  incrementUpgrade: incrementUpgrade,
+  setCost: setCost,
+} = upgradeSlice.actions;
 export default upgradeSlice.reducer;

@@ -2,14 +2,11 @@ body {
   margin: 0;
   padding: 0;
   overflow: hidden;
-  /* Hide any potential scrollbars */
 }
 
 .content {
   height: 100vh;
-  /* Make the content fill the viewport vertically */
   background-color: #f0f0f0;
-  /* Set a background color for visibility */
   text-align: center;
   display: flex;
   flex-direction: column;
@@ -17,49 +14,8 @@ body {
   align-items: center;
 }
 
-/* Define a flex container for your main content */
 .main-container {
   display: flex;
   flex-direction: column;
   height: 100vh;
 }
-
-/* Header takes 25% of the screen */
-.Header {
-  flex: 1;
-  text-align: center;
-}
-
-/* CookieButton takes 75% of the screen */
-.CookieButton {
-  flex: 3;
-  background-color: #e0e0e0;
-  text-align: center;
-}
-
-/* Both CookieDisplay and UpgradeButton takes 25% of the screen */
-.display-container {
-  display: grid;
-  flex: 1;
-  grid-template-columns: 1fr 1fr;
-  /* Two columns of equal width */
-  border: 2px solid black;
-  background-color: #b97a57;
-  /* Add a black outline */
-  border-radius: 10px;
-  /* Add rounded corners */
-  margin: 0 10px;
-}
-
-/* .display-item will share the available space evenly */
-.display-item {
-  flex: 1;
-  text-align: center;
-}
-
-.grid-item {
-  border-top: 2px solid black;
-  /* Add a black border to the top of the grid item */
-  /* Other grid item styles */
-}
-
