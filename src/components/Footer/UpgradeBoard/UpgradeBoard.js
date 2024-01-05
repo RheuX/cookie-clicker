@@ -37,7 +37,7 @@ function UpgradeBoard(props) {
       {upgradesList.map((upgradeItem) => (
         <button
           key={upgradeItem.id}
-          data-cost={upgradeItem.cost}
+          data-cost={"Cost: " + upgradeCost[upgradeItem.id]}
           onClick={() => handleUpgradeClick(upgradeItem.id)}
         >
           {upgradeItem.label}
