@@ -5,7 +5,7 @@ import { incrementTimer, resetTimer } from "../store/timerSlice";
 import Header from "./Header/Header";
 import GameBoard from "./GameBoard/GameBoard";
 import Footer from "./Footer/Footer";
-// import "./CookieClicker.css";
+import "./CookieClicker.css";
 
 const INITIAL_GOAL = 30;
 const COUNTING_INTERVAL = 10; // miliseconds

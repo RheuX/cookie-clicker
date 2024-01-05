@@ -2,7 +2,7 @@ import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { incrementUpgrade, setCost } from "../../../store/upgradeSlice";
 import { incrementScore } from "../../../store/scoreSlice";
-
+import "./UpgradeBoard.css";
 
 function UpgradeBoard(props) {
   const score = useSelector((state) => state.score.value);
@@ -32,7 +32,6 @@ function UpgradeBoard(props) {
     dispatch(setCost(id, newCost));
   };
 
-  // do I need to warp the buttons-container div with "display-item" style div, is it needed??
   return (
     <div className="buttons-container">
       {upgradesList.map((upgradeItem) => (

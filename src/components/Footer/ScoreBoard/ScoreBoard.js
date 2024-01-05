@@ -3,7 +3,7 @@ import { useSelector } from "react-redux";
 import Row from "./Row";
 import Cell from "./Cell";
 import Timer from "./Timer";
-// import "./ScoreBoard.css";
+import "./ScoreBoard.css";
 
 function ScoreBoard(props) {
   const score = useSelector((state) => state.score.value);
