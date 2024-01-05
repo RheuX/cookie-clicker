@@ -85,6 +85,7 @@ function CookieButton(props) {
       props.removeCookie();
     }
 
+    /******* stage 3 decoy setup *******/
     if (props.stage === 3 && !moved) {
       buttonRef.current.style.top = props.position[0];
       buttonRef.current.style.left = props.position[1];
@@ -96,7 +97,7 @@ function CookieButton(props) {
       }
     }
 
-    // moving
+    /******* stage 2, 3 moving *******/
     if (props.stage === 2 || props.stage === 3) {
       const top_border = [5.0, 80.0];
       const left_border = [1.0, 92.0];

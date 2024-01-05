@@ -2,7 +2,13 @@ import React, { useState, useRef, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { incrementScore } from "../../../store/scoreSlice";
 import defaultCookieStyle from "./defaultCookie";
-import { COUNTING_INTERVAL } from "../../CookieClicker";
+
+const diameter = 130 * 0.8 + "px";
+const defaultStyle = {
+  ...defaultCookieStyle,
+  width: diameter,
+  height: diameter,
+};
 
 function TeleportCookie(props) {
   const upgradeAmount = useSelector((state) => state.upgrade.value);
@@ -11,19 +17,24 @@ function TeleportCookie(props) {
   const dispatch = useDispatch();
   const [clickCount, setClickCount] = useState(0);
   const [lastTpTime, setLastTpTime] = useState(0);
-  const tpInterval = 200.0 * COUNTING_INTERVAL; // 2000 mili-s
-  const max_click = 3;
-  const buttonRef = useRef(null);
+  const tpInterval = props.tpInterval || 2000.0;
+  const max_click = props.max_click || 3;
+  const cookieStyle = props.cookieStyle || defaultStyle;
+  const localRef = useRef(null);
+  const forwardRef = props.forwardRef;
+  const buttonRef = typeof forwardRef === "undefined" ? localRef:forwardRef;
 
+  /****** check teleport  ******/
   useEffect(() => {
     if (timer - lastTpTime > tpInterval) {
       teleport();
     } else if (clickCount >= max_click) {
       teleport();
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [clickCount, lastTpTime, timer, tpInterval]);
 
+  /****** teleport  ******/
   const teleport = () => {
     var randomX = 0.15 + Math.random() * 0.6;
     var randomY = 0.1 + Math.random() * 0.8;
@@ -35,6 +46,10 @@ function TeleportCookie(props) {
 
     setLastTpTime(timer);
     setClickCount(0);
+    if (typeof props.onTeleport === "function") {
+      // remind parent if it passed an onTeleport() function
+      props.onTeleport();
+    }
   };
 
   const handleClick = () => {
@@ -47,7 +62,7 @@ function TeleportCookie(props) {
 
   return (
     <button
-      style={defaultCookieStyle}
+      style={cookieStyle}
       ref={buttonRef}
       onClick={handleClick}
     ></button>

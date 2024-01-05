@@ -53,7 +53,8 @@ function GameBoard(props) {
   return (
     <div id="GameBoard" style={gameboardStyle}>
       {stage === 0 && <NomralCookie />}
-      {stage !== 0 && <TeleportCookie />}
+      {stage === 1 && <TeleportCookie />}
+      {stage > 1 && <MovingTpCookie />}
     </div>
   );
 }

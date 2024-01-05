@@ -4,6 +4,13 @@ import { incrementScore } from "../../../store/scoreSlice";
 import { toggleActive, togglePause } from "../../../store/gameStateSlice";
 import defaultCookieStyle from "./defaultCookie"
 
+const diameter = 130 * 1.0 + "px";
+const cookieStyle = {
+  ...defaultCookieStyle,
+  width: diameter,
+  height: diameter,
+};
+
 function NomralCookie(props) {
   const upgradeAmount = useSelector((state) => state.upgrade.value);
   const gameIsActive = useSelector((state) => state.gameState.isActive);
@@ -22,7 +29,7 @@ function NomralCookie(props) {
     }
   }
 
-  return <button style={defaultCookieStyle} onClick={handleClick}></button>;
+  return <button style={cookieStyle} onClick={handleClick}></button>;
 }
 
 export default NomralCookie;
