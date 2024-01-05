@@ -1,9 +1,13 @@
 import React, { useState } from "react";
-import { useSelector, useDispatch } from "react-redux";
-import { setScore } from "../../store/scoreSlice";
-import Cookies from "./Cookies/Cookies";
+import { useSelector } from "react-redux";
+import NomralCookie from "./Cookies/NormalCookie";
+import TeleportCookie from "./Cookies/TeleportCookie";
+import MovingTpCookie from "./Cookies/MovingTpCookie";
+import MirageCookies from "./Cookies/MirageCookies";
+import DeadCookie from "./Cookies/DeadCookie";
+import CelebrateCookie from "./Cookies/DeadCookie";
 
-const containerStyle = {
+const gameboardStyle = {
   display: "flex",
   justifyContent: "center", // Center the button horizontally
   alignItems: "center", // Center the button vertically
@@ -14,15 +18,9 @@ const containerStyle = {
   position: "relative",
 };
 
-const tempAddButton = {
-  cursor: "pointer",
-  position: "absolute",
-  top: "90%",
-  left: "90%",
-};
-
 function GameBoard(props) {
   const [stage, setStage] = useState(0);
+  const score = useSelector((state) => state.score.value);
 
   // update game stage on score change
   React.useEffect(() => {
@@ -40,17 +38,14 @@ function GameBoard(props) {
     }
   }, [score]);
 
-  // reset score
-  const lostGame = () => {
-    useDispatch(setScore(0));
-  };
-
   return (
-    <div id="GameBoard" style={containerStyle}>
-      <Cookies
-        lostGame={lostGame}
-        stage={stage}
-      />
+    <div id="GameBoard" style={gameboardStyle}>
+      {stage == 0 && <NomralCookie />}
+      {stage == 1 && <TeleportCookie />}
+      {stage == 2 && <MovingTpCookie />}
+      {stage == 3 && <MirageCookies />}
+      {stage == 4 && <DeadCookie />}
+      {stage == 5 && <CelebrateCookie />}
     </div>
   );
 }
