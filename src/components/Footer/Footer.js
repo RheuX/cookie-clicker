@@ -17,7 +17,7 @@ function Footer(props) {
 
       <Row>
         <Cell><Timer/></Cell>
-        <Cell><p>Best Time:</p></Cell>
+        <Cell><p>Best Time: 00:20.55</p></Cell>
       </Row>
     </div>
   );

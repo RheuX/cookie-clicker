@@ -1,8 +1,9 @@
 import React from "react";
 
 const defaultStyles_row = {
-  flex: 1,
-  "text-align": center,
+  display: "flex",
+  justifyContent: "space-between",
+  width: "100%",
 };
 
 const Row = ({ children, className, style, onClick }) => {
@@ -15,5 +16,14 @@ const Row = ({ children, className, style, onClick }) => {
     </div>
   );
 };
+
+/* validate the props 
+Row.propTypes = {
+  children: PropTypes.node.isRequired,
+  className: PropTypes.string,
+  style: PropTypes.object,
+  onClick: PropTypes.func,
+};
+*/
 
 export default Row;
