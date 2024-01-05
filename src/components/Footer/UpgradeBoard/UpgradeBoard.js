@@ -8,6 +8,7 @@ function UpgradeBoard(props) {
   const score = useSelector((state) => state.score.value);
   // const upgradeAmount = useSelector((state) => state.upgrade.value);
   const upgradeCost = useSelector((state) => state.upgrade.cost);
+  const dispatch = useDispatch();
 
   const upgradesList = [
     { id: 0, label: "Click 1x", upgradeFactor: 1 },
@@ -26,9 +27,9 @@ function UpgradeBoard(props) {
       return; // no enough score
     }
 
-    useDispatch(incrementUpgrade(upgradeFactor));
-    useDispatch(incrementScore(-cost));
-    useDispatch(setCost(id, newCost));
+    dispatch(incrementUpgrade(upgradeFactor));
+    dispatch(incrementScore(-cost));
+    dispatch(setCost(id, newCost));
   };
 
   // do I need to warp the buttons-container div with "display-item" style div, is it needed??

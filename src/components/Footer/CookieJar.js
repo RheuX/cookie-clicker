@@ -1,4 +1,5 @@
 import React from "react";
+import { useSelector } from "react-redux";
 import Jar_0 from "../../assets/Jar_0.png";
 import Jar_1 from "../../assets/Jar_1.png";
 import Jar_2 from "../../assets/Jar_2.png";

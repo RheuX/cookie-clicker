@@ -1,4 +1,5 @@
 import React from "react";
+import { useSelector } from "react-redux";
 
 function Timer(props) {
   const timer = useSelector((state) => state.timer.timer);

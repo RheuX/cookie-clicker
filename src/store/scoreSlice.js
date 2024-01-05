@@ -6,7 +6,7 @@ const initialState = {
 
 const scoreSlice = createSlice({
   name: "score",
-  state: initialState,
+  initialState,
   reducers: {
     increment(state, action) {
       state.value += action.payload;

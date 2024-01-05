@@ -8,7 +8,7 @@ const initialState = {
 
 const gameStateSlice = createSlice({
   name: "gameState",
-  state: initialState,
+  initialState,
   reducers: {
     toggleActive(state) {
       state.isActive = !state.isActive;
@@ -23,9 +23,9 @@ const gameStateSlice = createSlice({
 });
 
 export const {
-  toggleActive: toggleActive,
-  togglePause: togglePause,
-  setGoal: setGoal,
+  toggleActive,
+  togglePause,
+  setGoal,
 } = gameStateSlice.actions;
 
 export default gameStateSlice.reducer;

@@ -1,4 +1,5 @@
-import { useSelector, useDispatch } from 'react-redux';
+import React from "react";
+import { useSelector, useDispatch } from "react-redux";
 import { setGoal, toggleActive, togglePause } from "../store/gameStateSlice";
 import { incrementTimer, resetTimer } from "../store/timerSlice";
 import Header from "./Header/Header";
@@ -41,7 +42,7 @@ function CookieClicker() {
       dispatch(togglePause());
     }
   }, [score, goal]);
-  
+
   //Auto Update every 10 miliseconds on timer
   React.useEffect(() => {
     let interval = null;
@@ -61,9 +62,9 @@ function CookieClicker() {
 
   return (
     <div className="main-container">
-      <Header/>
-      <GameBoard/>
-      <Footer/>
+      <Header />
+      <GameBoard />
+      <Footer />
     </div>
   );
 }

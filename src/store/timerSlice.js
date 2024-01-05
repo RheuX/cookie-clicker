@@ -6,7 +6,7 @@ const initialState = {
 
 const timerSlice = createSlice({
   name: "timer",
-  state: initialState,
+  initialState,
   reducers: {
     incrementTimer(state, action) {
       state.timer += action.payload;

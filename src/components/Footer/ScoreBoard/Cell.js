@@ -2,7 +2,7 @@ import React from "react";
 
 const defaultStyles_cell = {
   flex: 1,
-  textAlign: center,
+  textAlign: "center",
 };
 
 const Cell = ({ children, className, style, onClick }) => {

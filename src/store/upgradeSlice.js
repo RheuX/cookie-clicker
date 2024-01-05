@@ -8,7 +8,7 @@ const initialState = {
 
 const upgradeSlice = createSlice({
   name: "upgrade",
-  state: initialState,
+  initialState,
   reducers: {
     setUpgrade(state, action) {
       state.value = action.payload;

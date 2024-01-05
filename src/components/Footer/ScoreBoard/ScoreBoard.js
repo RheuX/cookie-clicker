@@ -1,6 +1,7 @@
 import React from "react";
+import { useSelector } from "react-redux";
 import Row from "./Row";
-import Cell from "./cell";
+import Cell from "./Cell";
 import Timer from "./Timer";
 // import "./ScoreBoard.css";
 
