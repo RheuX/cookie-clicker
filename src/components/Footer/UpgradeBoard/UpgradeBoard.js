@@ -39,7 +39,7 @@ function UpgradeBoard(props) {
         <button
           key={upgradeItem.id}
           data-cost={upgradeItem.cost}
-          onClick={handleUpgradeClick(upgradeItem.id)}
+          onClick={() => handleUpgradeClick(upgradeItem.id)}
         >
           {upgradeItem.label}
         </button>

@@ -34,10 +34,10 @@ function GameBoard(props) {
       newStage = 5;
     }
 
-    if (stage != newStage) {
+    if (stage !== newStage) {
       setStage(newStage);
     }
-  }, [score, stage]);
+  }, [goal, score, stage]);
 
   return (
     <div id="GameBoard" style={gameboardStyle}>

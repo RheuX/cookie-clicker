@@ -27,7 +27,7 @@ function CookieClicker() {
       // active game
       dispatch(toggleActive());
     }
-  }, [setGoal, toggleActive]);
+  }, [dispatch, gameIsActive]);
 
   // check on gameover when score updated
   React.useEffect(() => {
@@ -41,7 +41,7 @@ function CookieClicker() {
       dispatch(toggleActive());
       dispatch(togglePause());
     }
-  }, [score, goal]);
+  }, [score, goal, gameIsActive, gameIsPaused, dispatch]);
 
   //Auto Update every 10 miliseconds on timer
   React.useEffect(() => {
@@ -58,7 +58,7 @@ function CookieClicker() {
     return () => {
       clearInterval(interval);
     };
-  }, [gameIsActive, gameIsPaused]);
+  }, [dispatch, gameIsActive, gameIsPaused]);
 
   return (
     <div className="main-container">

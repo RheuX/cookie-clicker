@@ -1,5 +1,4 @@
 import React from "react";
-import { useSelector } from "react-redux";
 import ScoreBoard from "./ScoreBoard/ScoreBoard";
 import CookieJar from "./CookieJar";
 import UpgradeBoard from "./UpgradeBoard/UpgradeBoard";
@@ -16,9 +15,6 @@ const footerStyle = {
 };
 
 function Footer(props) {
-  const score = useSelector((state) => state.score.value);
-  const goal = useSelector((state) => state.gameState.goal);
-  
   return (
     <div style={footerStyle}>
       <ScoreBoard />
