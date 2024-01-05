@@ -1,92 +1,71 @@
-import React, { useState } from "react";
 import { useSelector, useDispatch } from 'react-redux';
-import Header from "./components/Header";
-import GameBoard from "./components/GameBoard";
+import { setGoal, toggleActive, togglePause } from "../store/gameStateSlice";
+import { incrementTimer, resetTimer } from "../store/timerSlice";
+import Header from "./Header/Header";
+import GameBoard from "./GameBoard/GameBoard";
+import Footer from "./Footer/Footer";
+// import "./CookieClicker.css";
 
-import "./CookieClicker.css";
+const INITIAL_GOAL = 30;
+const COUNTING_INTERVAL = 10; // miliseconds
 
 function CookieClicker() {
   //The goal for the game
-  const goal = 100000;
-  const gameIsActive = useSelector((state) => state.gameState.value);
+  const goal = useSelector((state) => state.gameState.goal);
+  const gameIsActive = useSelector((state) => state.gameState.isActive); // === why we need isActive again?? -- hl
+  const gameIsPaused = useSelector((state) => state.gameState.isPaused);
   const score = useSelector((state) => state.score.value);
   const dispatch = useDispatch();
 
+  // only initialize goal once
+  React.useEffect(() => {
+    dispatch(setGoal(INITIAL_GOAL));
+    dispatch(resetTimer());
 
+    if (!gameIsActive) {
+      // active game
+      dispatch(toggleActive());
+    }
+  }, [setGoal, toggleActive]);
+
+  // check on gameover when score updated
+  React.useEffect(() => {
+    if (!gameIsActive || gameIsPaused) {
+      // game not-active or paused, don't check
+      return;
+    }
+
+    // game is active and not-paused
+    if (score >= goal) {
+      dispatch(toggleActive());
+      dispatch(togglePause());
+    }
+  }, [score, goal]);
+  
   //Auto Update every 10 miliseconds on timer
   React.useEffect(() => {
     let interval = null;
 
-    if (isActive && isPaused === false) {
+    if (gameIsActive && !gameIsPaused) {
       interval = setInterval(() => {
-        setTime((time) => time + 10);
-      }, 10);
+        dispatch(incrementTimer(COUNTING_INTERVAL));
+      }, COUNTING_INTERVAL);
     } else {
-      clearInterval(interval);
+      clearInterval(interval); // stop timer
     }
+
     return () => {
       clearInterval(interval);
     };
-  }, [isActive, isPaused]);
-
-  //Handle function to start
-  const handleStart = () => {
-    setIsActive(true);
-    setIsPaused(false);
-  };
-
-  //Handle function to stop
-  const handlePauseResume = () => {
-    setIsPaused(!isPaused);
-  };
-
-  const startAndPause = () => {
-    if (time === 0) {
-      handleStart();
-    }
-    if (score + upgrade >= goal) {
-      handlePauseResume();
-    }
-  };
-
-  const incrementScore = () => {
-    //everytime you click, you get cookie
-    startAndPause();
-    setScore(score + upgrade);
-  };
-
-  const handleUpgradeClick = (value, id) => {
-    let cost = upgradeCosts[id];
-    if (score >= cost) {
-      //if you have enough cookie, upgrade
-      setUpgrade(upgrade + value);
-      setScore(score - cost);
-      updateUpgrade(id);
-    }
-  };
-
-  const updateUpgrade = (id) => {
-    upgradeCosts[id] = Math.ceil(upgradeCosts[id] * 1.8);
-    console.log(id, upgradeCosts[id]);
-  };
+  }, [gameIsActive, gameIsPaused]);
 
   return (
     <div className="main-container">
-      <Header className="Header" />
-      <GameBoard incrementScore={incrementScore} />
-      <div className="display-container">
-        <div className="display-item">
-          <CookieDisplay score={score} time={time} goal={goal} />
-        </div>
-        <div className="display-item">
-          <UpgradeButton
-            upgradesList={upgradesList}
-            onUpgradeClick={handleUpgradeClick}
-          />
-        </div>
-      </div>
+      <Header/>
+      <GameBoard/>
+      <Footer/>
     </div>
   );
 }
 
-export default App;
+export default CookieClicker;

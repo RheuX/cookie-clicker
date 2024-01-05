@@ -1,0 +1,30 @@
+.header {
+    background-color: #b97a57;
+    color: black;
+    padding: 10px;
+    text-align: center;
+    border-radius: 10px;
+    /* Add round corners */
+    border: 2px solid black;
+    /* Add a black outline */
+    font-family: 'Squada One';
+    margin: 0 10px
+}
+
+.header h1 {
+    /* Set the outline (text-stroke) to white with a thickness of 2px */
+    -webkit-text-stroke: 0.1px white;
+    /* For Webkit-based browsers (e.g., Chrome, Safari) */
+    font-size: 64px;
+    margin-bottom: 0;
+    margin-top: 5px;
+    /* Set the fill color (text-fill-color) to the background color or any other desired color */
+    color: #000;
+    /* Background color or any other desired color */
+}
+
+.header p {
+    font-size: 24px;
+    margin-top: 2px;
+    margin-bottom: 0;
+}

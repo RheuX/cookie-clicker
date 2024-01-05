@@ -1,0 +1,17 @@
+.display-cookie {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+
+    /* Set the outline (text-stroke) to white with a thickness of 2px */
+    -webkit-text-stroke: 1.5px black;
+    /* For Webkit-based browsers (e.g., Chrome, Safari) */
+    font-size: 32px;
+    /* Set the fill color (text-fill-color) to the background color or any other desired color */
+    color: #fff;
+    /* Background color or any other desired color */
+    font-family: 'Squada One';
+
+}
