@@ -69,4 +69,5 @@ function CookieClicker() {
   );
 }
 
+export {COUNTING_INTERVAL};
 export default CookieClicker;

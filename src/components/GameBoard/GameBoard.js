@@ -39,14 +39,21 @@ function GameBoard(props) {
     }
   }, [goal, score, stage]);
 
+  // return (
+  //   <div id="GameBoard" style={gameboardStyle}>
+  //     {stage === 0 && <NomralCookie />}
+  //     {stage === 1 && <TeleportCookie />}
+  //     {stage === 2 && <MovingTpCookie />}
+  //     {stage === 3 && <MirageCookies />}
+  //     {stage === 4 && <DeadCookie />}
+  //     {stage === 5 && <CelebrateCookie />}
+  //   </div>
+  // );
+
   return (
     <div id="GameBoard" style={gameboardStyle}>
       {stage === 0 && <NomralCookie />}
-      {stage === 1 && <TeleportCookie />}
-      {stage === 2 && <MovingTpCookie />}
-      {stage === 3 && <MirageCookies />}
-      {stage === 4 && <DeadCookie />}
-      {stage === 5 && <CelebrateCookie />}
+      {stage !== 0 && <TeleportCookie />}
     </div>
   );
 }
