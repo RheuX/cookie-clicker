@@ -21,7 +21,7 @@ const gameboardStyle = {
 function GameBoard(props) {
   const [stage, setStage] = useState(0);
   const score = useSelector((state) => state.score.value);
-  const goal = useSelector((state) => state.goal.value);
+  const goal = useSelector((state) => state.gameState.goal);
 
   // update game stage on score change
   React.useEffect(() => {

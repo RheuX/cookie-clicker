@@ -8,14 +8,14 @@ const scoreSlice = createSlice({
   name: "score",
   initialState,
   reducers: {
-    increment(state, action) {
+    incrementScore(state, action) {
       state.value += action.payload;
     },
-    set(state, action) {
+    setScore(state, action) {
       state.value = action.payload;
     },
   },
 });
 
-export const { increment: incrementScore, set: setScore} = scoreSlice.actions;
+export const { incrementScore, setScore } = scoreSlice.actions;
 export default scoreSlice.reducer;

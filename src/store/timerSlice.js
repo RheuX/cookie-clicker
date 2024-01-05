@@ -17,7 +17,7 @@ const timerSlice = createSlice({
   },
 });
 
-export const { incrementTimer: incrementTimer, resetTimer: resetTimer } =
+export const { incrementTimer, resetTimer } =
   timerSlice.actions;
 
 export default timerSlice.reducer;
