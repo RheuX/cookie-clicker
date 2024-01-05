@@ -39,10 +39,12 @@ const fakeCookies = [
   fakeCookie_8,
 ];
 
+/******* Constent base on stage *******/
 const speed = [0.0, 0.0, 1.0, 0.6, 0.0, 0.0];
 const tpInterval = [100000.0, 200.0, 100.0, 250, 0.0, 0.0];
 const max_click = [10000, 3, 3, 1, 100, 1];
 const deadCookieShowTime = 50;
+/******* Constent base on stage *******/
 
 function CookieButton(props) {
   const [clickCount, setClickCount] = useState(0);
@@ -227,6 +229,7 @@ function CookieButton(props) {
     }
   };
 
+  /******* buttonRef needed for stages that controls cookie *******/
   return (
     <button
       ref={buttonRef}
