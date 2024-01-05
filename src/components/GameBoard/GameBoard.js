@@ -1,5 +1,7 @@
 import React, { useState } from "react";
-import CookieButton from "./CookieButton";
+import { useSelector, useDispatch } from "react-redux";
+import { setScore } from "../../store/scoreSlice";
+import Cookies from "./Cookies/Cookies";
 
 const containerStyle = {
   display: "flex",
@@ -8,7 +10,7 @@ const containerStyle = {
   minHeight: "60vh", // Ensure the container takes up the full viewport height
   maxHeight: "80vh",
   overflow: "hidden",
-  "background-color": "grey",
+  backgroundColor: "grey",
   position: "relative",
 };
 
@@ -20,39 +22,35 @@ const tempAddButton = {
 };
 
 function GameBoard(props) {
-  const [cookieList, setCookieList] = useState([
-    { id: 0, text: "Cookie 0" },
-  ]);
-  const [idCounter, setIdCounter] = useState(1); 
+  const [stage, setStage] = useState(0);
 
-  
-  const addCookie = () => {
-    const newCookie = {
-      id: idCounter,
-      text: `Cookie ${idCounter}`,
-    };
+  // update game stage on score change
+  React.useEffect(() => {
+    var newStage = Math.floor((score * 6) / goal);
+    if (newStage > 4 && score < goal) {
+      newStage = 4;
+    }
 
-    setIdCounter((idCounter) => idCounter + 1);
+    if (newStage > 5) {
+      newStage = 5;
+    }
 
-    // Use the spread operator to create a new array with the new item added
-    setCookieList((cookieList) => [...cookieList, newCookie]);
+    if (stage != newStage) {
+      setStage(newStage);
+    }
+  }, [score]);
+
+  // reset score
+  const lostGame = () => {
+    useDispatch(setScore(0));
   };
 
   return (
     <div id="GameBoard" style={containerStyle}>
-      <ul>
-        {cookieList.map((cookie) => (
-          <CookieButton
-            key={cookie.id}
-            className="CookieButton"
-            text={cookie.text}
-            incrementScore={props.incrementScore}
-          />
-        ))}
-      </ul>
-      <button style={tempAddButton} onClick={addCookie}>
-        Add Cookie
-      </button>
+      <Cookies
+        lostGame={lostGame}
+        stage={stage}
+      />
     </div>
   );
 }
