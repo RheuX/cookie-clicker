@@ -65,6 +65,7 @@ function CookieButton(props) {
 
     check_teleport();
 
+    /******* stage 4 dead cookies *******/
     if (props.stage === 4) {
       if (deadCookieTimer >= 0) {
         setDeadCookieTimer((deadCookieTimer) => {
@@ -202,7 +203,7 @@ function CookieButton(props) {
     setTimeCount(0);
   };
 
-  /******* Check Teleportation on stage 6 *******/
+  /******* Check Teleportation on stage 5 *******/
   const check_dead_cookie = () => {
     if (clickCount === deadCookie - 1) {
       buttonRef.current.style.backgroundImage = `url(${deathCookie})`;

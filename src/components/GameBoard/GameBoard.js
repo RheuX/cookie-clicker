@@ -3,7 +3,7 @@ import { useSelector } from "react-redux";
 import NomralCookie from "./Cookies/NormalCookie";
 import TeleportCookie from "./Cookies/TeleportCookie";
 import MovingTpCookie from "./Cookies/MovingTpCookie";
-import MirageCookies from "./Cookies/MirageCookies";
+import DecoyCookie from "./Cookies/DecoyCookie/DecoyCookie";
 import DeadCookie from "./Cookies/DeadCookie";
 import CelebrateCookie from "./Cookies/DeadCookie";
 
