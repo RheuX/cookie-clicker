@@ -23,7 +23,7 @@ function GameBoard(props) {
   const score = useSelector((state) => state.score.value);
   const goal = useSelector((state) => state.gameState.goal);
 
-  // update game stage on score change
+  /***** update game stage on score change ******/
   React.useEffect(() => {
     var newStage = Math.floor((score * 6) / goal);
     if (newStage > 4 && score < goal) {
@@ -53,8 +53,8 @@ function GameBoard(props) {
   return (
     <div id="GameBoard" style={gameboardStyle}>
       {stage === 0 && <NomralCookie />}
-      {stage === 1 && <TeleportCookie />}
-      {stage > 1 && <MovingTpCookie />}
+      {stage === 100 && <TeleportCookie />}
+      {stage > 0 && <DeadCookie />}
     </div>
   );
 }

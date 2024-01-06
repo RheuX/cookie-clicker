@@ -1,6 +1,7 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { setGoal, toggleActive, togglePause } from "../store/gameStateSlice";
+import { setScore } from "../store/scoreSlice";
 import { incrementTimer, resetTimer } from "../store/timerSlice";
 import Header from "./Header/Header";
 import GameBoard from "./GameBoard/GameBoard";
@@ -13,23 +14,28 @@ const COUNTING_INTERVAL = 10; // miliseconds
 function CookieClicker() {
   //The goal for the game
   const goal = useSelector((state) => state.gameState.goal);
-  const gameIsActive = useSelector((state) => state.gameState.isActive); // === why we need isActive again?? -- hl
+  const gameIsActive = useSelector((state) => state.gameState.isActive);
   const gameIsPaused = useSelector((state) => state.gameState.isPaused);
   const score = useSelector((state) => state.score.value);
   const dispatch = useDispatch();
 
-  // only initialize goal once
+  /***** active the game when page load ******/
   React.useEffect(() => {
     dispatch(setGoal(INITIAL_GOAL));
     dispatch(resetTimer());
+    dispatch(setScore(0));
 
     if (!gameIsActive) {
-      // active game
       dispatch(toggleActive());
     }
-  }, [dispatch, gameIsActive]);
 
-  // check on gameover when score updated
+    if (gameIsPaused) {
+      dispatch(togglePause());
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  /***** check on gameover when score updated ******/
   React.useEffect(() => {
     if (!gameIsActive || gameIsPaused) {
       // game not-active or paused, don't check
@@ -43,7 +49,7 @@ function CookieClicker() {
     }
   }, [score, goal, gameIsActive, gameIsPaused, dispatch]);
 
-  //Auto Update every 10 miliseconds on timer
+  /***** Auto Update every 10 miliseconds on timer ******/
   React.useEffect(() => {
     let interval = null;
 
@@ -69,5 +75,5 @@ function CookieClicker() {
   );
 }
 
-export {COUNTING_INTERVAL};
+export { COUNTING_INTERVAL };
 export default CookieClicker;

@@ -1,8 +1,4 @@
-import React, {
-  useState,
-  useRef,
-  useEffect,
-} from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { useSelector } from "react-redux";
 import defaultCookieStyle from "./defaultCookie";
 import TeleportCookie from "./TeleportCookie";
@@ -18,13 +14,16 @@ function MovingTpCookie(props) {
   const timer = useSelector((state) => state.timer.timer);
   const speed = props.speed || 1.0;
   const cookieStyle = props.cookieStyle || defaultStyle;
-  const buttonRef = useRef(null);
+  const localRef = useRef(null);
+  const forwardRef = props.forwardRef;
+  // pass ref to parent is provided forwardRef
+  const buttonRef = typeof forwardRef === "undefined" ? localRef : forwardRef;
 
   const getRandomDirection = () => {
     const randomAngle = Math.random() * 2 * Math.PI;
     return [Math.cos(randomAngle), Math.sin(randomAngle)];
   };
-  
+
   const [direction, setDirection] = useState(
     props.direction || getRandomDirection()
   );
@@ -58,17 +57,16 @@ function MovingTpCookie(props) {
     console.log("Moved: " + x + ", " + y);
   };
 
-  /***** randomnize direction ******/
-  const changeDirection = () => {
-    setDirection(getRandomDirection());
-  };
-  
-
   /***** monitor time and move cookie ******/
   useEffect(() => {
     moveCookie();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [timer]);
+
+  /***** randomnize direction ******/
+  const changeDirection = () => {
+    setDirection(getRandomDirection());
+  };
 
   /***** onTeleport ******/
   const onTeleport = () => {

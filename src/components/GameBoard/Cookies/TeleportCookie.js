@@ -22,6 +22,7 @@ function TeleportCookie(props) {
   const cookieStyle = props.cookieStyle || defaultStyle;
   const localRef = useRef(null);
   const forwardRef = props.forwardRef;
+  // pass ref to parent is provided forwardRef
   const buttonRef = typeof forwardRef === "undefined" ? localRef:forwardRef;
 
   /****** check teleport  ******/
