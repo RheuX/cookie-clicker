@@ -16,11 +16,18 @@ const defaultStyle = {
 
 function MovingTpCookie(props) {
   const timer = useSelector((state) => state.timer.timer);
-  const [moved, setMoved] = useState(props.moved || false);
-  const [direction, setDirection] = useState(props.direction || [1.0, 1.0]);
   const speed = props.speed || 1.0;
   const cookieStyle = props.cookieStyle || defaultStyle;
   const buttonRef = useRef(null);
+
+  const getRandomDirection = () => {
+    const randomAngle = Math.random() * 2 * Math.PI;
+    return [Math.cos(randomAngle), Math.sin(randomAngle)];
+  };
+  
+  const [direction, setDirection] = useState(
+    props.direction || getRandomDirection()
+  );
 
   /***** move cookie ******/
   const moveCookie = () => {
@@ -49,23 +56,16 @@ function MovingTpCookie(props) {
     buttonRef.current.style.top = x + "%";
     buttonRef.current.style.left = y + "%";
     console.log("Moved: " + x + ", " + y);
-
-    setMoved(true);
   };
 
   /***** randomnize direction ******/
   const changeDirection = () => {
-    const randomAngle = Math.random() * 2 * Math.PI;
-    setDirection([Math.cos(randomAngle), Math.sin(randomAngle)]);
-    setMoved(false);
+    setDirection(getRandomDirection());
   };
+  
 
   /***** monitor time and move cookie ******/
   useEffect(() => {
-    if (!moved) {
-      changeDirection();
-    }
-
     moveCookie();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [timer]);
