@@ -1,39 +1,27 @@
 import React, { useState, useRef, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { incrementScore } from "../../../store/scoreSlice";
-import DecoyManager from "./DecoyCookies/DecoyManager";
 
-const diameter = 130 * 0.7 + "px";
-const defaultStyle = {
-  ...defaultCookieStyle,
-  width: diameter,
-  height: diameter,
-};
+function DecoyManager({
+  decoyType,
+  defaultStyle,
+  onCorrectClick,
+  onDecoyClick,
+}) {
+  const [idCounter, setIdCounter] = useState(0);
+  const [cookieList, setCookieList] = useState([]);
+  const decoy_amount = 5; // vary base on decot type -----------
 
-function DecoyCookie(props) {
-  const upgradeAmount = useSelector((state) => state.upgrade.value);
-  const gameIsPaused = useSelector((state) => state.gameState.isPaused);
-  const [cookieList, setCookieList] = useState([
-    { id: 0, dir: [-1.0, -1.0], pos: ["10%", "15%"] },
-  ]);
-  const [idCounter, setIdCounter] = useState(1);
-  const decoy_amount = 5; // vary base on decot type
-  const dispatch = useDispatch();
-
-  const decoyCookiePenalty = () => {
-    dispatch(incrementScore(-2 * upgradeAmount));
-  };
-
-  const addCookie = (id_offset, newDir, newPos) => {
+  const addCookie = (newDir, newPos, is_real) => {
+    // { id: 0, dir: [-1.0, -1.0], pos: ["10%", "15%"] },
     const newCookie = {
-      id: idCounter + id_offset,
+      id: idCounter,
       dir: newDir,
       pos: newPos,
+      is_real: is_real,
     };
 
-    setIdCounter((idCounter) => idCounter + 1 + id_offset);
-
-    // Use the spread operator to create a new array with the new item added
+    setIdCounter((idCounter) => idCounter + 1);
     setCookieList((cookieList) => [...cookieList, newCookie]);
   };
 
@@ -44,7 +32,7 @@ function DecoyCookie(props) {
     );
   };
 
-  return <div/>;
+  return <div />;
 }
 
-export default DecoyCookie;
+export default DecoyManager;
