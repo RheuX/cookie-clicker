@@ -3,7 +3,7 @@ import { useSelector } from "react-redux";
 import NomralCookie from "./Cookies/NormalCookie";
 import TeleportCookie from "./Cookies/TeleportCookie";
 import MovingTpCookie from "./Cookies/MovingTpCookie";
-import DecoyCookie from "./Cookies/DecoyCookie/DecoyCookie";
+// import DecoyCookie from "./Cookies/DecoyCookie/DecoyCookie";
 import DeadCookie from "./Cookies/DeadCookie";
 import CelebrateCookie from "./Cookies/DeadCookie";
 
@@ -53,8 +53,9 @@ function GameBoard(props) {
   return (
     <div id="GameBoard" style={gameboardStyle}>
       {stage === 0 && <NomralCookie />}
-      {stage === 100 && <TeleportCookie />}
-      {stage > 0 && <DeadCookie />}
+      {stage === 1 && <TeleportCookie />}
+      {stage === 2 && <MovingTpCookie />}
+      {stage > 2 && <DeadCookie />}
     </div>
   );
 }
