@@ -1,8 +1,8 @@
 import React, { useState, useRef, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { incrementScore } from "../../../store/scoreSlice";
-import DecoyManager from "./DecoyCookies/DecoyManager";
-import defaultCookieStyle from "./defaultCookie";
+import { incrementScore } from "../../../../store/scoreSlice";
+import DecoyManager from "./DecoyManager";
+import defaultCookieStyle from "./../defaultCookie";
 
 const diameter = 130 * 0.7 + "px";
 const defaultStyle = {
@@ -30,7 +30,7 @@ function DecoyCookie(props) {
       return;
     }
 
-    dispatch(incrementScore(-1 * upgradeAmount));
+    dispatch(incrementScore(-2 * upgradeAmount));
   };
 
   return (

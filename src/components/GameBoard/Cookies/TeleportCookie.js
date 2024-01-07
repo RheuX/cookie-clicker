@@ -57,8 +57,16 @@ function TeleportCookie(props) {
     if (gameIsPaused) {
       return;
     }
-    setClickCount((clickCount) => clickCount + 1);
-    dispatch(incrementScore(upgradeAmount));
+
+    if (typeof props.onClick === "function") {
+      // remind parent if it passed an onClick() function
+      props.onClick();
+    } else {
+      // onClick is null
+      setClickCount((clickCount) => clickCount + 1);
+      dispatch(incrementScore(upgradeAmount));
+    }
+
   };
 
   return (

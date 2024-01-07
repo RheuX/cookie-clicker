@@ -78,11 +78,14 @@ function MovingTpCookie(props) {
     changeDirection(); // change direction after teleport
   };
 
+  // if props didn't pass an onClick it will be null
+  const onClick = props.onClick;
   return (
     <TeleportCookie
       forwardRef={buttonRef}
       cookieStyle={cookieStyle}
       onTeleport={onTeleport}
+      onClick={onClick}
     />
   );
 }

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import getDecoyCookieType from "./DecoyTypes"
+import { getDecoyCookieType } from "./DecoyTypes";
 
 function DecoyManager({
   decoyType,
@@ -9,7 +9,6 @@ function DecoyManager({
 }) {
   const [idCounter, setIdCounter] = useState(0);
   const [cookieList, setCookieList] = useState([]);
-  const DecoyCookieType = getDecoyCookieType(decoyType);
 
   /****** add one cookie to the render list ******/
   const addCookie = (newDirAngle, newPos, is_real) => {
@@ -54,6 +53,12 @@ function DecoyManager({
     }
   };
 
+  /****** create first set of decoy ******/
+  useEffect(() => {
+    createNewSetOfDecoy();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   const handleCorrectClick = () => {
     onCorrectClick(); // defined by parent component on score update
     createNewSetOfDecoy();
@@ -64,24 +69,24 @@ function DecoyManager({
     removeCookie(id); // remove clicked decoy
   };
 
-  
-  useEffect(() => {
-    createNewSetOfDecoy();
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-  
   return (
     <ul>
-      {cookieList.map((cookie) => (
-        <DecoyCookieType
-          key={cookie.id}
-          is_real={cookie.is_real}
-          direction={cookie.dir}
-          position={cookie.pos}
-          onCorrectClick={handleCorrectClick}
-          onDecoyClick={() => handleDecoyClick(cookie.id)}
-        />
-      ))}
+      {cookieList.map((cookie) => {
+        const CookieType = getDecoyCookieType(decoyType, cookie.is_real);
+        var onClick = handleCorrectClick;
+        if (!cookie.is_real) {
+          onClick = () => handleDecoyClick(cookie.id);
+        }
+
+        return (
+          <CookieType
+            key={cookie.id}
+            direction={cookie.dir}
+            position={cookie.pos}
+            onClick={onClick}
+          />
+        );
+      })}
     </ul>
   );
 }
