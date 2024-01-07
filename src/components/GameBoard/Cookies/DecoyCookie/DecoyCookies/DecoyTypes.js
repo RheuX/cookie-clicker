@@ -18,15 +18,15 @@ import ChildTypeA from './ChildTypeA';
 import ChildTypeB from './ChildTypeB';
 import ChildTypeC from './ChildTypeC';
 
-const getChildComponentByType = (type) => {
+const getDecoyCookieType = (type) => {
   switch (type) {
-    case 'A':
+    case "A":
       return ChildTypeA;
-    case 'B':
+    case "B":
       return ChildTypeB;
     default:
       return ChildTypeC;
   }
 };
 
-export default getChildComponentByType;
+export default getDecoyCookieType;
