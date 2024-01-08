@@ -30,7 +30,7 @@ function DecoyCookie(props) {
       return;
     }
 
-    // dispatch(incrementScore(-1 * upgradeAmount));
+    dispatch(incrementScore(-1 * upgradeAmount));
   };
 
   return (
