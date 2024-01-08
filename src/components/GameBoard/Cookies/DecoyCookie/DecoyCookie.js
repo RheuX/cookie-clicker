@@ -2,7 +2,7 @@ import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { incrementScore } from "../../../../store/scoreSlice";
 import DecoyManager from "./DecoyManager";
-import defaultCookieStyle from "./../defaultCookie";
+// import defaultCookieStyle from "./../defaultCookie";
 
 // const diameter = 130 * 0.7 + "px";
 // const defaultStyle = {

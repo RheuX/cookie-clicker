@@ -19,8 +19,6 @@ function DecoyManager({
       is_real: is_real,
     };
 
-    console.log("id: " + newCookie.id);
-
     setCookieList((cookieList) => [...cookieList, newCookie]);
   };
 
@@ -40,7 +38,6 @@ function DecoyManager({
     const randomPosition = [randomX.toFixed(3), randomY.toFixed(3)];
     const decoy_amount = 5; //============================================ vary base on decoy type ========
 
-    console.log("manager: ", randomPosition);
     setCookieList([]); // remove all old cookies
     addCookie(idCounter, randomAngle, randomPosition, true); // add only real cookie
 

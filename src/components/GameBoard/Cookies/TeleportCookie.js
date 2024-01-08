@@ -44,7 +44,6 @@ function TeleportCookie(props) {
 
       setLastTpTime(timer);
       setClickCount(0);
-      console.log("cookie: ", props.position);
     } else {
       teleport();
     }
@@ -63,10 +62,6 @@ function TeleportCookie(props) {
 
   /****** teleport  ******/
   const teleport = () => {
-    console.log("timer : ", timer);
-    console.log("cookie t- : ", buttonRef.current.style.top);
-    console.log("cookie l-- : ", buttonRef.current.style.left);
-
     const randomPosition = getRandomPosition();
     buttonRef.current.style.top = randomPosition[0] * 100 + "%";
     buttonRef.current.style.left = randomPosition[1] * 100 + "%";
