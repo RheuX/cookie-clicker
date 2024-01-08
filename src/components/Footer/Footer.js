@@ -1,5 +1,4 @@
 import React from "react";
-import ScoreBoard from "../Header/ScoreBoard/ScoreBoard";
 import CookieJar from "./CookieJar";
 import UpgradeBoard from "./UpgradeBoard/UpgradeBoard";
 import CookieMonster from "./CookieMonster";

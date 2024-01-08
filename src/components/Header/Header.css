@@ -1,4 +1,7 @@
 .header {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    align-items: center;
     background-color: #b97a57;
     color: black;
     padding: 10px;
@@ -6,9 +9,11 @@
     border-radius: 10px;
     border: 2px solid black;
     font-family: 'Squada One';
-    margin: 0 10px;
-    display: grid;
-    grid-template-columns: auto 1fr auto;
+}
+
+.title-container {
+    grid-column: 2;
+    text-align: center;
 }
 
 .title-container {
