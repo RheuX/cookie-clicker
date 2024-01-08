@@ -35,7 +35,6 @@ function MovingTpCookie(props) {
 
     let x = parseFloat(buttonRef.current.style.top.replace("%", ""));
     let y = parseFloat(buttonRef.current.style.left.replace("%", ""));
-    console.log("Moving: " + x + ", " + y);
     const factor = 0.2;
 
     var gameBoard = document.getElementById("GameBoard");
@@ -54,7 +53,6 @@ function MovingTpCookie(props) {
 
     buttonRef.current.style.top = x + "%";
     buttonRef.current.style.left = y + "%";
-    console.log("Moved: " + x + ", " + y);
   };
 
   /***** monitor time and move cookie ******/
@@ -82,6 +80,7 @@ function MovingTpCookie(props) {
   const onClick = props.onClick;
   return (
     <TeleportCookie
+      position={props.position}
       forwardRef={buttonRef}
       cookieStyle={cookieStyle}
       onTeleport={onTeleport}

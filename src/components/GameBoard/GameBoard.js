@@ -54,7 +54,7 @@ function GameBoard(props) {
     <div id="GameBoard" style={gameboardStyle}>
       {stage === 0 && <NomralCookie />}
       {stage === 1 && <TeleportCookie />}
-      {stage > 1 && <MovingTpCookie />}
+      {stage > 1 && <DecoyCookie />}
     </div>
   );
 }

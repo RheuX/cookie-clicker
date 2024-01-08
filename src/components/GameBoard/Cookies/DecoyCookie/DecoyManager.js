@@ -3,7 +3,6 @@ import { getDecoyCookieType } from "./DecoyTypes";
 
 function DecoyManager({
   decoyType,
-  defaultStyle,
   onCorrectClick,
   onDecoyClick,
 }) {
@@ -11,16 +10,17 @@ function DecoyManager({
   const [cookieList, setCookieList] = useState([]);
 
   /****** add one cookie to the render list ******/
-  const addCookie = (newDirAngle, newPos, is_real) => {
+  const addCookie = (id, newDirAngle, newPos, is_real) => {
     // { id: 0, dir: [-1.0, -1.0], pos: ["10%", "15%"] },
     const newCookie = {
-      id: idCounter,
+      id: id,
       dir: [Math.cos(newDirAngle), Math.sin(newDirAngle)],
       pos: newPos,
       is_real: is_real,
     };
 
-    setIdCounter((idCounter) => idCounter + 1);
+    console.log("id: " + newCookie.id);
+
     setCookieList((cookieList) => [...cookieList, newCookie]);
   };
 
@@ -40,8 +40,9 @@ function DecoyManager({
     const randomPosition = [randomX.toFixed(3), randomY.toFixed(3)];
     const decoy_amount = 5; //============================================ vary base on decoy type ========
 
+    console.log("manager: ", randomPosition);
     setCookieList([]); // remove all old cookies
-    addCookie(randomAngle, randomPosition, true); // add only real cookie
+    addCookie(idCounter, randomAngle, randomPosition, true); // add only real cookie
 
     // add decoies
     const deltaAngle = (2 * Math.PI) / (1 + decoy_amount);
@@ -49,8 +50,10 @@ function DecoyManager({
     for (let i = 1; i <= decoy_amount; i++) {
       const decoyAngle = (randomAngle + i * deltaAngle) % (2 * Math.PI);
 
-      addCookie(decoyAngle, randomPosition, false);
+      addCookie(idCounter + i, decoyAngle, randomPosition, false);
     }
+
+    setIdCounter((idCounter) => idCounter + decoy_amount + 1);
   };
 
   /****** create first set of decoy ******/

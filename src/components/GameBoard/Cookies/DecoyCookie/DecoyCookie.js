@@ -1,15 +1,15 @@
-import React, { useState, useRef, useEffect } from "react";
+import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { incrementScore } from "../../../../store/scoreSlice";
 import DecoyManager from "./DecoyManager";
 import defaultCookieStyle from "./../defaultCookie";
 
-const diameter = 130 * 0.7 + "px";
-const defaultStyle = {
-  ...defaultCookieStyle,
-  width: diameter,
-  height: diameter,
-};
+// const diameter = 130 * 0.7 + "px";
+// const defaultStyle = {
+//   ...defaultCookieStyle,
+//   width: diameter,
+//   height: diameter,
+// };
 
 function DecoyCookie(props) {
   const upgradeAmount = useSelector((state) => state.upgrade.value);
@@ -30,13 +30,12 @@ function DecoyCookie(props) {
       return;
     }
 
-    dispatch(incrementScore(-2 * upgradeAmount));
+    // dispatch(incrementScore(-1 * upgradeAmount));
   };
 
   return (
     <DecoyManager
       decoyType={decoyType}
-      defaultStyle={defaultStyle}
       onCorrectClick={onCorrectClick}
       onDecoyClick={onDecoyClick}
     />
