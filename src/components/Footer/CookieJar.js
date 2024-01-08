@@ -10,11 +10,11 @@ import Jar_6 from "../../assets/Jar_6.png";
 import Jar_7 from "../../assets/Jar_7.png";
 
 const cookieJarStyle = {
-  width: "100px",
-  height: "100px",
+  width: "125px",
+  height: "125px",
   position: "absolute",
-  top: "25%",
-  left: "22%",
+  top: "29%", //Need to change based on the cookie monster position (top of the table)
+  left: "8%", // Same as Top, need to be changed, left of the cookie monster, cookieMonster position already fixed
 };
 
 function CookieJar(props) {
