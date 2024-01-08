@@ -30,7 +30,8 @@ function DecoyCookie(props) {
       return;
     }
 
-    dispatch(incrementScore(-1 * upgradeAmount));
+    dispatch(incrementScore(-1 * upgradeAmount)); // maybe change it to accumulate fraction of decrease
+                                                  // need new function in score slice to save fractionial punishment and clear fractional punishment
   };
 
   return (
