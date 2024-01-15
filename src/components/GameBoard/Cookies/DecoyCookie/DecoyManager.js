@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { getDecoyCookieType } from "./DecoyTypes";
+import { getDecoyCookieType, decoyReversionOnType } from "./DecoyTypes";
 
 function DecoyManager({
   decoyType,
@@ -8,6 +8,15 @@ function DecoyManager({
 }) {
   const [idCounter, setIdCounter] = useState(0);
   const [cookieList, setCookieList] = useState([]);
+  const [reverseDecoy, setReverseDecoy] = useState(false);
+
+  useEffect(() => {
+    if (decoyReversionOnType(decoyType)) {
+      setReverseDecoy(true);
+    } else {
+      setReverseDecoy(false);
+    }
+  }, [decoyType])
 
   /****** add one cookie to the render list ******/
   const addCookie = (id, newDirAngle, newPos, is_real) => {
@@ -37,9 +46,10 @@ function DecoyManager({
     var randomY = 0.1 + Math.random() * 0.8;
     const randomPosition = [randomX.toFixed(3), randomY.toFixed(3)];
     const decoy_amount = 5; //============================================ vary base on decoy type ========
-
     setCookieList([]); // remove all old cookies
-    addCookie(idCounter, randomAngle, randomPosition, true); // add only real cookie
+
+    // add only real cookie / or only fake on reverse
+    addCookie(idCounter, randomAngle, randomPosition, !reverseDecoy);
 
     // add decoies
     const deltaAngle = (2 * Math.PI) / (1 + decoy_amount);
@@ -47,7 +57,7 @@ function DecoyManager({
     for (let i = 1; i <= decoy_amount; i++) {
       const decoyAngle = (randomAngle + i * deltaAngle) % (2 * Math.PI);
 
-      addCookie(idCounter + i, decoyAngle, randomPosition, false);
+      addCookie(idCounter + i, decoyAngle, randomPosition, reverseDecoy);
     }
 
     setIdCounter((idCounter) => idCounter + decoy_amount + 1);

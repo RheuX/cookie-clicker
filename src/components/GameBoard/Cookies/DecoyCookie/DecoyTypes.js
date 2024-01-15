@@ -1,10 +1,12 @@
 // import all sub type cookies (real/decoy)
-import Basic_Real from "./DecoyCookies/Basic_Real";
-import Basic_Decoy from "./DecoyCookies/Basic_Decoy";
+import {AmongUs_Real, AmongUs_Decoy} from "./DecoyCookies/AmongUs";
+import { Rotate_Real, Rotate_Decoy } from "./DecoyCookies/Rotate";
 
 const Types = [
-  { type: "Basic", Cookie: [Basic_Real, Basic_Decoy], decoy_amount: 5 },
-  { type: "Other", Cookie: [null, null], decoy_amount: 0 },
+  { type: "AmongUs", Cookie: [AmongUs_Real, AmongUs_Decoy], decoy_amount: 5 },
+  { type: "Rotate", Cookie: [Rotate_Real, Rotate_Decoy], decoy_amount: 5 },
+  // { type: "ReverseDeadCookie", Cookie: [null, null], decoy_amount: 0 },
+  // { type: "Other", Cookie: [null, null], decoy_amount: 0 },
 ];
 const TotalTypeAmount = Types.length;
 
@@ -48,10 +50,19 @@ const getDecoyAmount = (type) => {
   return CookieEntry.decoy_amount;
 };
 
+const decoyReversionOnType = (type) => {
+  if (type === "ReverseDeadCookie") {
+    return true;
+  }
+
+  return false;
+};
+
 export {
   TotalTypeAmount,
   getRandomType,
   getTypeAt,
   getDecoyCookieType,
   getDecoyAmount,
+  decoyReversionOnType,
 };

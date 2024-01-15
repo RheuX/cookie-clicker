@@ -61,9 +61,29 @@ function MovingTpCookie(props) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [timer]);
 
+  /****** change background render when direction changes ******/
+  useEffect(() => {
+    if (direction[1] <= 0 && props.background_left) {
+      buttonRef.current.style.backgroundImage = props.background_left;
+      console.log("left");
+    } else if (direction[1] > 0 && props.background_right) {
+      buttonRef.current.style.backgroundImage = props.background_right;
+      console.log("right");
+    }
+  }, [direction]);
+
+  /****** onChangeDirection ******/
+  const onChangeDirection = () => {
+    if (typeof props.onChangeDirection === "function") {
+      // remind parent if it passed an onTeleport() function
+      props.onChangeDirection(direction);
+    }
+  };
+
   /***** randomnize direction ******/
   const changeDirection = () => {
     setDirection(getRandomDirection());
+    onChangeDirection();
   };
 
   /***** onTeleport ******/

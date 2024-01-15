@@ -1,21 +1,14 @@
-import React from "react";
+import React, {useState} from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { incrementScore } from "../../../../store/scoreSlice";
 import DecoyManager from "./DecoyManager";
-// import defaultCookieStyle from "./../defaultCookie";
-
-// const diameter = 130 * 0.7 + "px";
-// const defaultStyle = {
-//   ...defaultCookieStyle,
-//   width: diameter,
-//   height: diameter,
-// };
+import { getRandomType } from "./DecoyTypes";
 
 function DecoyCookie(props) {
   const upgradeAmount = useSelector((state) => state.upgrade.value);
   const gameIsPaused = useSelector((state) => state.gameState.isPaused);
   const dispatch = useDispatch();
-  const decoyType = "Basic";
+  const [decoyType, setDecoyType] = useState("Rotate");
 
   const onCorrectClick = () => {
     if (gameIsPaused) {
@@ -23,6 +16,7 @@ function DecoyCookie(props) {
     }
 
     dispatch(incrementScore(upgradeAmount));
+    setDecoyType(getRandomType());
   }
   
   const onDecoyClick = () => {
@@ -39,6 +33,7 @@ function DecoyCookie(props) {
       decoyType={decoyType}
       onCorrectClick={onCorrectClick}
       onDecoyClick={onDecoyClick}
+      reverseDecoy={false}
     />
   );
 }
